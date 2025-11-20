@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Prospero-Regular";
+  src: url("/font/Prospero-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Prospero-Extralight";
+  src: url("/font/Prospero-Extralight.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Prospero-SemiBold";
+  src: url("/font/Prospero-SemiBold.ttf") format("truetype");
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-secundary: var(--secundary);
+  --color-third: var(--third);
+  --color-four: var(--four);
+  --font-prosperoExtralight: var(--font-prospero-Extralight);
+  --font-prosperoSemiBold: var(--font-prospero-SemiBold);
+  --font-prosperoRegular: var(--font-prospero-Regular);
+}
+@layer component {
+  .btn-primary {
+    @apply cursor-pointer relative font-prosperoSemiBold rounded-full transition-all ease-in bg-transparent;
+  }
+  .btn-primary:hover {
+    @apply hover:bg-gradient-to-r from-four to-third;
+  }
+  .btn-primary::before {
+    @apply absolute rounded-full;
+    content: "";
+    inset: -1px;
+    padding: 1px;
+    background: linear-gradient(to right, var(--four), var(--third));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 1;
+    transition: all ease-in 0.3s;
+  }
+  .btn-secondary {
+    @apply cursor-pointer relative font-prosperoExtralight rounded-full border border-primary/60 bg-transparent hover:bg-primary;
+  }
+  .text-gradient {
+    background: linear-gradient(to right, var(--four) 0%, var(--third) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+  .input-field {
+    @apply w-full bg-transparent border rounded-full border-primary/20 text-primary placeholder:text-primary/40 py-3 px-4 focus:outline-none focus:border-four transition-colors font-prosperoRegular;
+  }
+}
+
+:root {
+  font-family: "Prospero-Regular";
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: var(--primary);
+  background-color: var(--secundary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --font-prospero-Extralight: "Prospero-Extralight";
+  --font-prospero-SemiBold: "Prospero-SemiBold";
+  --font-prospero-Regular: "Prospero-Regular";
+  --primary: #fffef6;
+  --secundary: #000000;
+  --third: #996114;
+  --four: #f8d58e;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  @apply overflow-x-hidden xl:text-[0.8333339vw] max-sm:text-[3.5vw] sm:text-[1.5vw] lg:text-[1vw] bg-primary;
+  height: 100vh;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  /* @apply overflow-x-hidden xl:text-[16px] max-sm:text-[4vw] sm:text-[1.5vw] lg:text-[1vw] scroll-smooth bg-black; */
+}
+
+body {
+  @apply overflow-x-hidden snap-y snap-mandatory;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+body,
+#root {
+  @apply w-full h-full;
+}
