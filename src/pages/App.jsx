@@ -108,7 +108,7 @@ function App() {
         title={"Conferencistas"}
         width={"full"}
         resume={
-          'En INTER DAY te esperan voces que inspiran, motivan y nos recuerdan por qué <span class="font-prosperoSemiBold">vale la pena seguir entregando.</span>'
+          'En INTER DAY te esperan voces que inspiran,<br /> motivan y nos recuerdan por qué<br/> <span class="font-prosperoSemiBold">vale la pena seguir entregando.</span>'
         }
       />
       <CardArtist
@@ -116,7 +116,7 @@ function App() {
         title={"Artistas"}
         width={"medium"}
         resume={
-          "Tres grandes de la música nacional nos acompañan para cerrar a lo grande este evento."
+          "Tres grandes de la música nacional<br /> nos acompañan para cerrar <br/>a lo grande este evento."
         }
         overlay={true}
       />
