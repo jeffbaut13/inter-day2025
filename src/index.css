@@ -86,7 +86,7 @@
 }
 html {
   @apply overflow-x-hidden xl:text-[0.8333339vw] max-sm:text-[3.5vw] sm:text-[1.5vw] lg:text-[1vw] bg-primary;
-  height: 100vh;
+  
   scroll-behavior: smooth;
   /* @apply overflow-x-hidden xl:text-[16px] max-sm:text-[4vw] sm:text-[1.5vw] lg:text-[1vw] scroll-smooth bg-black; */
 }
