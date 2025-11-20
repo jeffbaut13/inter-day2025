@@ -19,7 +19,7 @@ export const Button = ({ id, text, size, color = "", onClick, type }) => {
       onClick={handleClick}
       className={`${
         color === "white" ? "btn-secondary" : "btn-primary"
-      } group py-2 ${
+      } group lg:py-2 max-lg:pt-3 max-lg:pb-1.5  ${
         size === "small"
           ? "px-14"
           : size === "medium"

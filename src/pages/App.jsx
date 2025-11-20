@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/Button";
 import { CardArtist } from "@/components/ui/CardArtist";
 import { Footer } from "@/components/Footer/Footer";
 import { X } from "lucide-react";
+import { MainSection } from "@/components/Home/MainSection";
+import { useResponsive } from "@/hooks/useResponsive";
 
 function App() {
   const { isLoading, openForm, setOpenForm } = useOutletContext();
@@ -16,24 +18,28 @@ function App() {
       person: "Norman <br/> Chaparro",
       category: "Tiempo para aprender",
       img: "/imagenes/conferencistas/norman-chaparro.jpg",
+      imgM: "/imagenes/mobile/norman-chaparroM.jpg",
     },
     {
       index: 2,
       person: "Yokoi <br/> Kenji",
       category: "Conectando propósito con acción",
       img: "/imagenes/conferencistas/Yokoi-Kenji.jpg",
+      imgM: "/imagenes/mobile/yokoi-kenjiM.jpg",
     },
     {
       index: 3,
       person: "Oscar <br/> Córdova",
       category: "Felicidad, liderazgo y marca personal",
       img: "/imagenes/conferencistas/oscar-cordova.jpg",
+      imgM: "/imagenes/mobile/oscar-cordovaM.jpg",
     },
     {
       index: 4,
       person: "Isaac <br/> Chaparro",
       category: "Entregar es mejor que recibir",
       img: "/imagenes/conferencistas/isaac-chaparro.jpg",
+      imgM: "/imagenes/mobile/isaac-chaparroM.jpg",
     },
   ];
 
@@ -43,18 +49,21 @@ function App() {
       person: "Luis <br/> Silva",
       category: "Música Llanera",
       img: "/imagenes/artistas/luis-silva.jpg",
+      imgM: "/imagenes/mobile/luis-silvaM.jpg",
     },
     {
       index: 2,
       person: "Kapo",
       category: "AFROBEAT Y REGUETÓN",
       img: "/imagenes/artistas/kapo.jpg",
+      imgM: "/imagenes/mobile/kapoM.jpg",
     },
     {
       index: 3,
       person: "Walter <br/> Silva",
       category: "MÚSICA LLANERA",
       img: "/imagenes/artistas/walter-silva.jpg",
+      imgM: "/imagenes/mobile/walter-silvaM.jpg",
     },
   ];
 
@@ -72,37 +81,8 @@ function App() {
         )}
       </AnimatePresence>
 
-      <main className="snap-start snap-always w-full h-dvh overflow-hidden relative">
-        <ImgBackground img={"/imagenes/section-one.jpg"} />
-        <div className="flex size-full justify-center items-center px-4 md:px-20 lg:px-40">
-          <div className="w-1/2 h-full flex flex-col justify-center gap-26 items-center py-16">
-            <div className="w-full text-center">
-              <h1 className="text-primary text-4xl md:text-[2.6rem] font-prosperoExtralight text-center tracking-wide leading-12 border-b border-primary/20 pb-4">
-                LOS TALENTOS QUE NOS MUEVEN <br /> Y LAS IDEAS QUE NOS INSPIRAN{" "}
-                <br />
-                <span className="font-prosperoSemiBold">
-                  {" "}
-                  REUNIDOS EN ESTA ENTREGA.
-                </span>
-              </h1>
-              <p className="mt-4">
-                13 DE DICIEMBRE COLISEO ÁLVARO MEZA AMAYA, VILLAVICENCIO, META,
-                COL.
-              </p>
-            </div>
-            <Button
-              id={"acquire-ticket"}
-              text="ADQUIERE TU ENTRADA"
-              size={"large"}
-            />
-          </div>
-          <div className="w-1/2 relative h-full">
-            <p className="absolute -right-40 -rotate-90 bottom-40">
-              Código pulep: tqk951
-            </p>
-          </div>
-        </div>
-      </main>
+      <MainSection />
+
       <CardArtist
         artist={conferencistas}
         title={"Conferencistas"}
