@@ -37,7 +37,7 @@ export const CardArtist = ({
         </motion.div>
       </AnimatePresence>
 
-      <div className="flex flex-col justify-around lg:flex-row size-full px-4 md:px-20 lg:px-40 lg:py-16 max-lg:pt-40">
+      <div className="flex flex-col justify-around lg:flex-row size-full px-4 md:px-20 lg:px-40 lg:py-16 max-lg:pt-46">
         {/* Lado izquierdo - Información del artista */}
         <div className="lg:w-1/2 w-full lg:h-full h-1/3 flex flex-col lg:justify-center justify-start items-start">
           {!isDesktop ? (
@@ -156,7 +156,7 @@ export const CardArtist = ({
           <div
             className={`w-full flex ${
               artist.length > 3 ? "justify-between" : "justify-center"
-            } items-center lg:gap-6 gap-2`}
+            } items-center lg:gap-6 gap-4`}
           >
             {artist.map(
               (item, index) =>
@@ -168,7 +168,7 @@ export const CardArtist = ({
                     animate={{ opacity: isDesktop ? 0.4 : 0.8, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
                     transition={{ duration: 0.3 }}
-                    className="cursor-pointer relative lg:w-72 w-auto lg:h-[24rem] h-62 rounded-lg overflow-hidden"
+                    className="cursor-pointer relative lg:w-72 w-36 lg:h-[24rem] h-56 rounded-lg overflow-hidden"
                     whileHover={{ opacity: 1, scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                   >
