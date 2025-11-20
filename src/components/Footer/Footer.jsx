@@ -53,13 +53,14 @@ export const Footer = () => {
       </div>
       <div className="max-lg:mb-8 w-full flex flex-col lg:flex-row justify-start items-start gap-0 lg:gap-14 md:items-center">
         <h6 className="text-gradient w-fit">Medios invitados:</h6>
-        <div className="flex-1 flex justify-between items-center flex-wrap gap-x-6 gap-y-4">
+        <div className="flex-1 w-full">
           {ImgAliados({
             imgArray: Array.from(
               { length: 9 },
               (_, i) => `/iconos/invitados/Recurso-${i + 1}.svg`
             ),
             size: "",
+            grid: true,
           })}
         </div>
       </div>
@@ -101,8 +102,8 @@ export const Footer = () => {
   );
 };
 
-const ImgAliados = ({ imgArray, size }) => {
-  return imgArray.map((item, i) => (
+const ImgAliados = ({ imgArray, size, grid = false }) => {
+  const content = imgArray.map((item, i) => (
     <figure
       key={i}
       className={`w-auto group inline-block ${
@@ -122,4 +123,14 @@ const ImgAliados = ({ imgArray, size }) => {
       />
     </figure>
   ));
+
+  if (grid) {
+    return (
+      <div className="grid grid-cols-4 gap-x-6 gap-y-6 w-full">
+        {content}
+      </div>
+    );
+  }
+
+  return content;
 };
