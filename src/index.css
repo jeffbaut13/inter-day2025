@@ -88,12 +88,20 @@ html {
   @apply overflow-x-hidden xl:text-[0.8333339vw] max-sm:text-[3.5vw] sm:text-[1.5vw] lg:text-[1vw] bg-primary;
   height: 100vh;
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
   /* @apply overflow-x-hidden xl:text-[16px] max-sm:text-[4vw] sm:text-[1.5vw] lg:text-[1vw] scroll-smooth bg-black; */
 }
 
+@media (min-width: 1024px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+  body {
+    @apply snap-y snap-mandatory;
+  }
+}
+
 body {
-  @apply overflow-x-hidden snap-y snap-mandatory;
+  @apply overflow-x-hidden;
   height: 100vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
