@@ -37,9 +37,9 @@ export const CardArtist = ({
         </motion.div>
       </AnimatePresence>
 
-      <div className="flex flex-col justify-around lg:flex-row size-full px-4 md:px-20 lg:px-40 lg:py-16">
+      <div className="flex flex-col justify-around lg:flex-row size-full px-4 md:px-20 lg:px-40 lg:py-16 max-lg:pt-40">
         {/* Lado izquierdo - Información del artista */}
-        <div className="lg:w-1/2 w-full lg:h-full h-1/3 flex flex-col lg:justify-center justify-start items-start max-lg:pt-32">
+        <div className="lg:w-1/2 w-full lg:h-full h-1/3 flex flex-col lg:justify-center justify-start items-start">
           {!isDesktop ? (
             <div
               className={`text-right w-full flex flex-col justify-center items-center gap-4 ${
@@ -109,7 +109,7 @@ export const CardArtist = ({
         </div>
 
         {/* Lado derecho - Título, descripción y tarjetas */}
-        <div className="lg:w-1/2 w-full lg:h-full h-auto flex flex-col justify-center gap-16 lg:items-center items-start">
+        <div className="lg:w-1/2 w-full lg:h-full h-full flex flex-col lg:justify-center justify-start lg:gap-16 gap-40 lg:items-center items-start">
           {overlay && (
             <div className="absolute size-full top-0 left-0 -z-10 bg-black/30" />
           )}
