@@ -15,7 +15,7 @@ export const Footer = () => {
           <Link to={item} key={index} target="_blank" rel="noopener noreferrer">
             {ImgAliados({
               imgArray: [`/iconos/iconos-sociales/Recurso-${index + 1}.svg`],
-              size: isDesktop ? "small" : "",
+              size: isDesktop ? "" : "",
             })}
           </Link>
         ))}
