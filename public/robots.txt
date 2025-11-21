@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /src/
+Disallow: /*.jsx
+Disallow: /*.js
+Disallow: /*.json
+Disallow: /*.config.js
+Disallow: /node_modules/
+Allow: /
