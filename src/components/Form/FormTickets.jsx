@@ -79,7 +79,7 @@ export const FormTickets = ({ isOpen, onClose }) => {
               <>
                 <div className="text-center mb-8">
                   <h2 className="text-primary text-4xl mb-4">TE ESPERAMOS</h2>
-                  <p className="text-primary/40 text-lg ">
+                  <p className="text-primary/80 text-lg ">
                     Comparte con nosotros algunos datos, <br />
                     para hacer efectiva la entrega de tu boleta.
                   </p>
@@ -240,7 +240,7 @@ const SuccessMessage = () => {
         <p className="text-primary text-xl font-prosperoRegular leading-relaxed">
           Tu registro ha sido exitoso.
         </p>
-        <p className="text-primary/70 text-lg font-prosperoRegular leading-relaxed">
+        <p className="text-primary text-lg font-prosperoRegular leading-relaxed">
           Pronto recibirás tu boleta en el correo electrónico que nos
           proporcionaste.
           <br />
