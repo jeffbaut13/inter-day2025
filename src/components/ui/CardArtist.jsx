@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ImgBackground } from "./ImgBackground";
 import { useResponsive } from "@/hooks/useResponsive";
@@ -11,72 +11,19 @@ export const CardArtist = ({
   overlay = false,
   width = "full",
 }) => {
-  const [artistList, setArtistList] = useState(artist);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [isContentOpen, setIsContentOpen] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const autoplayRef = useRef(null);
+  const selectedArtist = artist[selectedIndex];
   const { isDesktop } = useResponsive();
-
-  // El artista que se muestra de fondo es el último del array (oculto)
-  const backgroundArtist = artistList[artistList.length - 1];
-
-  const handleCardClick = (clickedIndex) => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-
-    // Calcular cuántas posiciones mover
-    const moves = clickedIndex + 1;
-
-    // Rotar el array las veces necesarias
-    setArtistList((prevList) => {
-      let newList = [...prevList];
-      for (let i = 0; i < moves; i++) {
-        const firstItem = newList.shift();
-        newList.push(firstItem);
-      }
-      return newList;
-    });
-
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 300);
-  };
-
-  // Autoplay cada 7 segundos
-  useEffect(() => {
-    const startAutoplay = () => {
-      autoplayRef.current = setInterval(() => {
-        handleCardClick(0); // Mover automáticamente la primera tarjeta
-      }, 10000);
-    };
-
-    startAutoplay();
-
-    return () => {
-      if (autoplayRef.current) {
-        clearInterval(autoplayRef.current);
-      }
-    };
-  }, [artistList, isAnimating]);
-
-  const resetAutoplay = () => {
-    if (autoplayRef.current) {
-      clearInterval(autoplayRef.current);
-    }
-    autoplayRef.current = setInterval(() => {
-      handleCardClick(0);
-    }, 10000);
-  };
 
   return (
     <section
       id={title}
       className="snap-start snap-always w-full h-dvh overflow-hidden relative"
     >
-      {/* Imagen de fondo - último del array (oculto) */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={backgroundArtist.img}
+          key={selectedArtist.img}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -85,18 +32,17 @@ export const CardArtist = ({
         >
           <ImgBackground
             overlay={false}
-            img={isDesktop ? backgroundArtist.img : backgroundArtist.imgM}
+            img={isDesktop ? selectedArtist.img : selectedArtist.imgM}
           />
         </motion.div>
       </AnimatePresence>
-
       {isDesktop ? (
         <div className="flex flex-col justify-around lg:flex-row size-full px-4 md:px-20 lg:px-40 lg:py-16 max-lg:pt-46">
           {/* Lado izquierdo - Información del artista */}
           <div className="lg:w-1/2 w-full lg:h-full h-1/3 flex flex-col lg:justify-center justify-start items-start">
             <AnimatePresence mode="wait">
               <motion.div
-                key={backgroundArtist.person}
+                key={selectedArtist.person}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
@@ -132,7 +78,7 @@ export const CardArtist = ({
                     }}
                     className="text-primary/60 text-xl font-prosperoRegular block"
                   >
-                    {String(backgroundArtist.index).padStart(2, "0")}
+                    {String(selectedArtist.index).padStart(2, "0")}
                   </motion.span>
                 </div>
                 <div className="overflow-hidden">
@@ -149,9 +95,7 @@ export const CardArtist = ({
                       },
                     }}
                     className="text-primary text-5xl md:text-6xl font-prosperoSemiBold uppercase w-fit border-b border-primary/20 block"
-                    dangerouslySetInnerHTML={{
-                      __html: backgroundArtist.person,
-                    }}
+                    dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
                   ></motion.h2>
                 </div>
                 <div className="overflow-hidden mt-2">
@@ -169,14 +113,14 @@ export const CardArtist = ({
                     }}
                     className="text-primary/80 text-lg font-prosperoRegular uppercase tracking-wider block"
                   >
-                    {backgroundArtist.category}
+                    {selectedArtist.category}
                   </motion.p>
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Lado derecho - Título, descripción y slider */}
+          {/* Lado derecho - Título, descripción y tarjetas */}
           <div className="lg:w-1/2 w-full lg:h-full h-full flex flex-col lg:justify-center justify-start lg:gap-16 gap-40 lg:items-center items-start">
             {overlay && (
               <div className="absolute size-full top-0 left-0 -z-10 bg-black/30" />
@@ -197,48 +141,17 @@ export const CardArtist = ({
               />
             </div>
 
-            {/* Slider de tarjetas - mostrar solo las visibles (no la última) */}
-            <div className="w-full h-96">
-              <div className="flex gap-5 items-center">
-                {artistList.map((item, index) => {
-                  // No mostrar la última tarjeta (es la de fondo)
-                  if (index === artistList.length - 1) return null;
-
-                  const cardWidth = 20; // rem
-                  const offset = cardWidth + 1.25; // cardWidth + gap (1.25rem = 20px)
-                  return (
-                    <motion.div
-                      key={`${item.index}-desktop`}
-                      initial={{ x: `${offset/4}rem` }}
-                      animate={{ x: `${offset/4}rem` }}
-                      transition={{ duration: 0.8, ease: "easeInOut" }}
-                      onClick={() => {
-                        handleCardClick(index);
-                        resetAutoplay();
-                      }}
-                      className="shrink-0 relative rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 transition-opacity"
-                      style={{ width: `${cardWidth}rem`, height: "23.75rem" }}
-                    >
-                      <img
-                        src={item.img}
-                        alt={item.person}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4">
-                        <p
-                          className="text-primary text-sm font-prosperoSemiBold uppercase line-clamp-2"
-                          dangerouslySetInnerHTML={{ __html: item.person }}
-                        />
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
+            {/* Tarjetas de artistas */}
+            <TarjetasArtistas
+              artist={artist}
+              selectedIndex={selectedIndex}
+              setSelectedIndex={setSelectedIndex}
+              isDesktop={isDesktop}
+            />
           </div>
         </div>
       ) : (
-        <div className="relative flex flex-col justify-between size-full px-4 md:px-20 lg:px-40 lg:py-16 py-8 gap-8">
+        <div className="flex flex-col justify-evenly size-full px-4 md:px-20 lg:px-40 lg:py-16 py-8 gap-12">
           <div
             className={`text-right w-full flex flex-col justify-center items-center gap-4 ${
               width === "medium" ? "max-w-lg" : "max-w-full"
@@ -284,7 +197,7 @@ export const CardArtist = ({
 
           <AnimatePresence mode="wait">
             <motion.div
-              key={backgroundArtist.person}
+              key={selectedArtist.person}
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -320,7 +233,7 @@ export const CardArtist = ({
                   }}
                   className="text-primary text-xl font-prosperoRegular block"
                 >
-                  {String(backgroundArtist.index).padStart(2, "0")}
+                  {String(selectedArtist.index).padStart(2, "0")}
                 </motion.span>
               </div>
               <div className="overflow-hidden">
@@ -337,7 +250,7 @@ export const CardArtist = ({
                     },
                   }}
                   className="text-primary text-2xl md:text-6xl font-prosperoSemiBold uppercase w-fit border-b border-primary/20 block"
-                  dangerouslySetInnerHTML={{ __html: backgroundArtist.person }}
+                  dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
                 ></motion.h2>
               </div>
               <div className="overflow-hidden mt-2">
@@ -355,56 +268,65 @@ export const CardArtist = ({
                   }}
                   className="text-primary text-sm uppercase tracking-wider max-w-52 block"
                 >
-                  {backgroundArtist.category}
+                  {selectedArtist.category}
                 </motion.p>
               </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Slider de tarjetas mobile */}
-          <div className="relative w-full overflow-hidden">
-            <div className="flex gap-5 items-center">
-              {artistList.map((item, index) => {
-                // No mostrar la última tarjeta (es la de fondo)
-                if (index === artistList.length - 1) return null;
-
-                const cardWidth = (window.innerWidth - 64) / 2.2 / 16; // Convertir a rem
-                const offset = index * (cardWidth + 1.25); // 1.25rem = 20px gap
-
-                return (
-                  <motion.div
-                    key={`${item.index}-mobile`}
-                    initial={{ x: `${offset}rem` }}
-                    animate={{ x: `${offset}rem` }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                    onClick={() => {
-                      handleCardClick(index);
-                      resetAutoplay();
-                    }}
-                    className="shrink-0 relative rounded-lg overflow-hidden cursor-pointer"
-                    style={{ width: `${cardWidth}rem`, height: "17.5rem" }}
-                  >
-                    <img
-                      src={item.imgM || item.img}
-                      alt={item.person}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-3">
-                      <p
-                        className="text-primary text-sm font-prosperoSemiBold uppercase line-clamp-2"
-                        dangerouslySetInnerHTML={{ __html: item.person }}
-                      />
-                      <p className="text-primary/70 text-xs font-prosperoRegular uppercase mt-1">
-                        {item.category}
-                      </p>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+          <TarjetasArtistas
+            artist={artist}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+            isDesktop={isDesktop}
+          />
         </div>
       )}
     </section>
   );
 };
+
+const TarjetasArtistas = ({
+  artist,
+  selectedIndex,
+  setSelectedIndex,
+  isDesktop,
+}) => {
+  return (
+    <div
+      className={`w-full flex ${
+        artist.length > 3 ? "justify-between" : "justify-center"
+      } items-center lg:gap-6 gap-4`}
+    >
+      {artist.map(
+        (item, index) =>
+          selectedIndex !== index && (
+            <motion.div
+              key={item.index}
+              onClick={() => setSelectedIndex(index)}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: isDesktop ? 0.4 : 0.8, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3 }}
+              className="cursor-pointer relative lg:w-72 w-36 lg:h-96 h-56 rounded-lg overflow-hidden"
+              whileHover={{ opacity: 1, scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <img
+                src={item.img}
+                alt={item.person}
+                className="w-full h-full object-cover object-[calc(31%)]"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4">
+                <p
+                  className="text-primary text-sm font-prosperoSemiBold uppercase"
+                  dangerouslySetInnerHTML={{ __html: item.person }}
+                />
+              </div>
+            </motion.div>
+          )
+      )}
+    </div>
+  );
+};
+
