@@ -3,11 +3,12 @@ import { useOutletContext } from "react-router";
 import { Loading } from "@/components/loaders/Loading";
 import { ImgBackground } from "@/components/ui/ImgBackground";
 import { Button } from "@/components/ui/Button";
-import { CardArtist } from "@/components/ui/CardArtist";
+ 
 import { Footer } from "@/components/Footer/Footer";
 import { X } from "lucide-react";
 import { MainSection } from "@/components/Home/MainSection";
-import { useResponsive } from "@/hooks/useResponsive";
+import { CardArtist } from "@/components/ui/CardArtist";
+ 
 
 function App() {
   const { isLoading, openForm, setOpenForm } = useOutletContext();
@@ -29,7 +30,7 @@ function App() {
     },
     {
       index: 3,
-      person: "Oscar <br/> Córdova",
+      person: "Oscar <br/> Córdoba",
       category: "Felicidad, liderazgo y marca personal",
       img: "/imagenes/conferencistas/oscar-cordova.jpg",
       imgM: "/imagenes/mobile/oscar-cordovaM.jpg",

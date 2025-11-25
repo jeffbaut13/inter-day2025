@@ -60,9 +60,9 @@ export const Header = ({ context }) => {
   };
 
   return (
-    <header className="fixed py-12 w-full h-14 left-0 top-0 px-10 md:px-20 lg:px-40 flex justify-between items-center z-10 bg-gradient-to-b from-black/30 to-black/2">
+    <header className="fixed py-12 w-full h-14 left-0 top-0 px-10 md:px-20 lg:px-40 flex justify-between items-center z-10 bg-linear-to-b from-black/30 to-black/2">
       <div className="flex flex-col items-center justify-start">
-        <i className="md:w-fit w-36 h-12 inline-block">
+        <i className="md:w-fit w-36 h-10 inline-block">
           <img
             className="size-full object-contain"
             src={logo}

@@ -1,13 +1,14 @@
 import { useResponsive } from "@/hooks/useResponsive";
 import { Button } from "../ui/Button";
 import { ImgBackground } from "../ui/ImgBackground";
+import { ImgBack } from "../ui/ImgBack";
 
 export const MainSection = () => {
   const { isMobile, isTablet, isDesktop } = useResponsive();
 
   return (
     <main className="snap-start snap-always w-full h-dvh overflow-hidden relative">
-      <ImgBackground
+      <ImgBack
         img={
           isDesktop
             ? "/imagenes/section-one.jpg"
@@ -37,7 +38,7 @@ export const MainSection = () => {
           />
 
           {!isDesktop && (
-            <p className="absolute -right-10 -rotate-90 bottom-24 text-xs">
+            <p className="absolute -right-10 -rotate-90 bottom-24 text-xs text-primary/60">
               Código pulep: tqk951
             </p>
           )}
@@ -45,7 +46,7 @@ export const MainSection = () => {
 
         <div className="w-1/2 relative lg:h-full h-1/2">
           {isDesktop && (
-            <p className="absolute -right-40 -rotate-90 bottom-40">
+            <p className="absolute -right-40 -rotate-90 bottom-40 text-primary/60">
               Código pulep: tqk951
             </p>
           )}
