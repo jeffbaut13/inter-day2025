@@ -12,7 +12,7 @@ export const NotFound = () => {
         transition={{ duration: 1 }}
         className="absolute inset-0 flex items-center justify-center"
       >
-        <span className="text-[20rem] md:text-[30rem] font-prosperoSemiBold text-primary">
+        <span className="text-[20rem] md:text-[30rem] font-prosperoBold text-primary">
           404
         </span>
       </motion.div>

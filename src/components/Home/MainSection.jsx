@@ -21,7 +21,7 @@ export const MainSection = () => {
             <h1 className="lg:w-fit w-full text-primary text-2xl md:text-[2.6rem] font-prosperoExtralight text-center tracking-wide lg:leading-12 border-b border-primary/20 pb-4">
               LOS TALENTOS QUE NOS MUEVEN <br /> Y LAS IDEAS QUE NOS INSPIRAN{" "}
               <br />
-              <span className="font-prosperoSemiBold">
+              <span className="font-prosperoBold">
                 {" "}
                 REUNIDOS EN ESTA ENTREGA.
               </span>
@@ -38,7 +38,7 @@ export const MainSection = () => {
           />
 
           {!isDesktop && (
-            <p className="absolute -right-10 -rotate-90 bottom-24 text-xs text-primary/40">
+            <p className="absolute -right-10 -rotate-90 bottom-24 text-xs text-primary/30">
               Código pulep: tqk951
             </p>
           )}
@@ -46,7 +46,7 @@ export const MainSection = () => {
 
         <div className="w-1/2 relative lg:h-full h-1/2">
           {isDesktop && (
-            <p className="absolute -right-40 -rotate-90 bottom-40 text-primary/40">
+            <p className="absolute -right-40 -rotate-90 bottom-40 text-primary/30">
               Código pulep: tqk951
             </p>
           )}

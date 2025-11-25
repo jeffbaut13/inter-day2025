@@ -89,7 +89,7 @@ function App() {
         title={"Conferencistas"}
         width={"full"}
         resume={
-          'En INTER DAY te esperan voces que inspiran,<br /> motivan y nos recuerdan por qué<br/> <span class="font-prosperoSemiBold">vale la pena seguir entregando.</span>'
+          'En INTER DAY te esperan voces que inspiran,<br /> motivan y nos recuerdan por qué<br/> <span class="font-prosperoBold">vale la pena seguir entregando.</span>'
         }
       />
       <CardArtist

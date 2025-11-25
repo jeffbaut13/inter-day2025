@@ -226,7 +226,7 @@ const SuccessMessage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="text-gradient text-5xl font-prosperoSemiBold mb-6"
+        className="text-gradient text-5xl font-prosperoBold mb-6"
       >
         ¡GRACIAS!
       </motion.h2>
@@ -244,7 +244,7 @@ const SuccessMessage = () => {
           Pronto recibirás tu boleta en el correo electrónico que nos
           proporcionaste.
           <br />
-          <span className="text-four font-prosperoSemiBold">
+          <span className="text-four font-prosperoBold">
             ¡Nos vemos en INTER DAY 2025!
           </span>
         </p>

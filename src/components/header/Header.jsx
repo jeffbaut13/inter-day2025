@@ -73,10 +73,10 @@ export const Header = ({ context }) => {
       {isDesktop && (
         <nav>
           <ul className="flex items-center gap-8 text-sm">
-            <li className="text-primary hover:text-primary transition-all ease-in">
+            <li className="hover:font-prosperoBold text-primary hover:text-primary transition-all ease-in">
               <a href="#Conferencistas">SPEAKERS</a>
             </li>
-            <li className="text-primary hover:text-primary transition-all ease-in">
+            <li className="hover:font-prosperoBold text-primary hover:text-primary transition-all ease-in">
               <a href="#Artistas">ARTISTAS</a>
             </li>
             <AnimatePresence>

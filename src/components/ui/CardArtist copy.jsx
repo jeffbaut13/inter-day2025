@@ -94,7 +94,7 @@ export const CardArtist = ({
                         transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
                       },
                     }}
-                    className="text-primary text-5xl md:text-6xl font-prosperoSemiBold uppercase w-fit border-b border-primary/20 block"
+                    className="text-primary text-5xl md:text-6xl font-prosperoBold uppercase w-fit border-b border-primary/20 block"
                     dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
                   ></motion.h2>
                 </div>
@@ -131,7 +131,7 @@ export const CardArtist = ({
                 width === "medium" ? "max-w-lg" : "max-w-full"
               }`}
             >
-              <h3 className="text-primary text-2xl font-prosperoSemiBold uppercase">
+              <h3 className="text-primary text-2xl font-prosperoBold uppercase">
                 {title}
               </h3>
               <span className="block w-1px h-full bg-primary" />
@@ -161,7 +161,7 @@ export const CardArtist = ({
               onClick={() => setIsContentOpen(!isContentOpen)}
               className="w-full flex justify-between items-center cursor-pointer"
             >
-              <h3 className="text-primary text-2xl font-prosperoSemiBold uppercase">
+              <h3 className="text-primary text-2xl font-prosperoBold uppercase">
                 {title}
               </h3>
               <motion.div
@@ -249,7 +249,7 @@ export const CardArtist = ({
                       transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
                     },
                   }}
-                  className="text-primary text-2xl md:text-6xl font-prosperoSemiBold uppercase w-fit border-b border-primary/20 block"
+                  className="text-primary text-2xl md:text-6xl font-prosperoBold uppercase w-fit border-b border-primary/20 block"
                   dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
                 ></motion.h2>
               </div>
@@ -319,7 +319,7 @@ const TarjetasArtistas = ({
               />
               <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4">
                 <p
-                  className="text-primary text-sm font-prosperoSemiBold uppercase"
+                  className="text-primary text-sm font-prosperoBold uppercase"
                   dangerouslySetInnerHTML={{ __html: item.person }}
                 />
               </div>

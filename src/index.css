@@ -13,6 +13,11 @@
   src: url("/font/Prospero-SemiBold.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Prospero-Bold";
+  src: url("/font/Prospero-Bold.ttf") format("truetype");
+}
+
 @theme inline {
   --color-primary: var(--primary);
   --color-secundary: var(--secundary);
@@ -20,6 +25,7 @@
   --color-four: var(--four);
   --font-prosperoExtralight: var(--font-prospero-Extralight);
   --font-prosperoSemiBold: var(--font-prospero-SemiBold);
+  --font-prosperoBold: var(--font-prospero-Bold);
   --font-prosperoRegular: var(--font-prospero-Regular);
 }
 @layer component {
@@ -75,6 +81,7 @@
 
   --font-prospero-Extralight: "Prospero-Extralight";
   --font-prospero-SemiBold: "Prospero-SemiBold";
+  --font-prospero-Bold: "Prospero-Bold";
   --font-prospero-Regular: "Prospero-Regular";
   --primary: #fffef6;
   --secundary: #000000;
@@ -86,7 +93,7 @@
 }
 html {
   @apply overflow-x-hidden xl:text-[0.8333339vw] max-sm:text-[3.5vw] sm:text-[1.5vw] lg:text-[1vw] bg-primary lg:h-screen;
-  
+
   scroll-behavior: smooth;
   /* @apply overflow-x-hidden xl:text-[16px] max-sm:text-[4vw] sm:text-[1.5vw] lg:text-[1vw] scroll-smooth bg-black; */
 }
