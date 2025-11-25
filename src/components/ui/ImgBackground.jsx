@@ -7,7 +7,7 @@ export const ImgBackground = ({
   sizeHeight = false,
   zIndex = -10,
   medidas = { top: 0, left: 0, right: 0, bottom: 0 },
-  events = "none",
+
   children,
   customStyle = "",
   isSelected = false,
@@ -26,7 +26,7 @@ export const ImgBackground = ({
           left: medidas.left,
           right: medidas.right,
           bottom: medidas.bottom,
-          opacity: (isLastCard && !showLastCard) ? 0 : 1,
+          opacity: isLastCard && !showLastCard ? 0 : "",
         }}
         transition={{
           width: { duration: isLastCard ? 0.15 : 0.5, ease: "easeInOut" },
@@ -42,13 +42,13 @@ export const ImgBackground = ({
           width: 320,
           height: 420,
           zIndex: zIndex,
-          pointerEvents: events ? "auto" : "none",
+
           position: "absolute",
-          visibility: (isLastCard && !showLastCard) ? "hidden" : "visible",
+          visibility: isLastCard && !showLastCard ? "hidden" : "visible",
         }}
-        className={`${customStyle ? customStyle : ""} ${
-          events ? "cursor-pointer" : ""
-        } bg-center bg-cover bg-no-repeat`}
+        className={`${
+          customStyle ? customStyle : ""
+        }  bg-center bg-cover bg-no-repeat`}
       >
         {children}
       </motion.div>

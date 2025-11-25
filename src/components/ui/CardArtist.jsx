@@ -134,13 +134,12 @@ export const CardArtist = ({
                     img={isDesktop ? item.img : item.imgM}
                     customStyle={
                       !isSelected &&
-                      "rounded-lg opacity-60 hover:opacity-100 transition-opacity duration-300"
+                      "rounded-2xl opacity-60 hover:opacity-100 transition-opacity duration-300 overflow-hidden"
                     }
                     zIndex={visualIndex + 1}
                     isSelected={isSelected}
                     sizeWidth={isSelected}
                     sizeHeight={isSelected}
-                    events={!isSelected}
                     shouldGrow={isSelected && shiftPosition > 0}
                     isLastCard={isLastVisibleCard}
                     showLastCard={showLastCard}
@@ -153,14 +152,7 @@ export const CardArtist = ({
                       bottom: "auto",
                     }}
                   >
-                    {!isSelected && (
-                      <button
-                        onClick={() => handleArtistClick(index)}
-                        className="w-full h-full flex items-center justify-center text-white font-prosperoSemiBold text-xl"
-                      >
-                        Ver más
-                      </button>
-                    )}
+                    {!isSelected && <InsideCard selectedArtist={item} />}
                   </ImgBackground>
                 );
               })}
@@ -470,9 +462,6 @@ export const CardArtist = ({
                         className="text-primary text-sm font-prosperoSemiBold uppercase line-clamp-2"
                         dangerouslySetInnerHTML={{ __html: item.person }}
                       />
-                      <p className="text-primary/70 text-xs font-prosperoRegular uppercase mt-1">
-                        {item.category}
-                      </p>
                     </div>
                   </motion.div>
                 );
@@ -508,49 +497,13 @@ export const CardArtist = ({
   );
 };
 
-const TarjetasArtistas = ({
-  artist,
-  selectedIndex,
-  setSelectedIndex,
-  isDesktop,
-}) => {
+const InsideCard = ({ selectedArtist }) => {
   return (
-    <div
-      className={`w-full flex ${
-        artist.length > 3 ? "justify-between" : "justify-center"
-      } items-center lg:gap-6 gap-4`}
-    >
-      {artist.map(
-        (item, index) =>
-          selectedIndex !== index && (
-            <motion.div
-              key={item.index}
-              onClick={() => setSelectedIndex(index)}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: isDesktop ? 0.4 : 0.8, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
-              className="cursor-pointer relative lg:w-72 w-36 lg:h-96 h-56 rounded-lg overflow-hidden"
-              whileHover={{ opacity: 1, scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <img
-                src={item.img}
-                alt={item.person}
-                className="w-full h-full object-cover object-[calc(31%)]"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4">
-                <p
-                  className="text-primary text-sm font-prosperoSemiBold uppercase"
-                  dangerouslySetInnerHTML={{ __html: item.person }}
-                />
-                <p className="text-primary/70 text-xs font-prosperoRegular uppercase mt-1 hidden lg:block">
-                  {item.category}
-                </p>
-              </div>
-            </motion.div>
-          )
-      )}
+    <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black from-10% to-transparent p-4 h-1/3 flex items-end">
+      <p
+        className="text-primary text-sm font-prosperoSemiBold uppercase line-clamp-2"
+        dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
+      />
     </div>
   );
 };
