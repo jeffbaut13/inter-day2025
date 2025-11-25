@@ -99,7 +99,7 @@ function App() {
         resume={
           "Tres grandes de la música nacional<br /> nos acompañan para cerrar <br/>a lo grande este evento."
         }
-        overlay={true}
+        
       />
       <Footer />
     </>
