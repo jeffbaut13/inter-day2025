@@ -134,7 +134,7 @@ export const CardArtist = ({
               <h3 className="text-primary text-2xl font-prosperoSemiBold uppercase">
                 {title}
               </h3>
-              <span className="block w-1px h-full bg-primary" />
+              <span className="block w-px h-full bg-primary" />
               <p
                 className="text-primary/90 text-base text-start font-prosperoRegular leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: resume }}
