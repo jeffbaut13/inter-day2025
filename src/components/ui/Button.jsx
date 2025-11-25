@@ -34,7 +34,7 @@ export const Button = ({ id, text, size, color = "", onClick, type }) => {
       <span
         className={`${
           color === "white"
-            ? "text-primary/60 group-hover:text-secundary"
+            ? "text-primary group-hover:text-secundary"
             : "text-four group-hover:text-secundary"
         }  tracking-wider whitespace-nowrap`}
       >

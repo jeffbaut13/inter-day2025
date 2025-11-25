@@ -27,7 +27,7 @@
     @apply cursor-pointer relative font-prosperoSemiBold rounded-full transition-all ease-in bg-transparent;
   }
   .btn-primary:hover {
-    @apply hover:bg-gradient-to-r from-four to-third;
+    @apply hover:bg-linear-to-r from-four to-third;
   }
   .btn-primary::before {
     @apply absolute rounded-full;
@@ -45,7 +45,7 @@
     transition: all ease-in 0.3s;
   }
   .btn-secondary {
-    @apply cursor-pointer relative font-prosperoExtralight rounded-full border border-primary/60 bg-transparent hover:bg-primary;
+    @apply cursor-pointer relative font-prosperoExtralight rounded-full border border-primary bg-transparent hover:bg-primary;
   }
   .text-gradient {
     background: linear-gradient(to right, var(--four) 0%, var(--third) 100%);
@@ -85,8 +85,8 @@
   box-sizing: border-box;
 }
 html {
-  @apply overflow-x-hidden xl:text-[0.8333339vw] max-sm:text-[3.5vw] sm:text-[1.5vw] lg:text-[1vw] bg-primary;
-  height: 100vh;
+  @apply overflow-x-hidden xl:text-[0.8333339vw] max-sm:text-[3.5vw] sm:text-[1.5vw] lg:text-[1vw] bg-primary lg:h-screen;
+  
   scroll-behavior: smooth;
   /* @apply overflow-x-hidden xl:text-[16px] max-sm:text-[4vw] sm:text-[1.5vw] lg:text-[1vw] scroll-smooth bg-black; */
 }

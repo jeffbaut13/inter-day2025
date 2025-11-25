@@ -43,22 +43,79 @@ export const CardArtist = ({
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedArtist.person}
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 50 }}
-                transition={{ duration: 0.5 }}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.1,
+                      delayChildren: 0.05,
+                    },
+                  },
+                  exit: {
+                    transition: {
+                      staggerChildren: 0.05,
+                      staggerDirection: -1,
+                    },
+                  },
+                }}
                 className="flex flex-col"
               >
-                <span className="text-primary/60 text-xl font-prosperoRegular">
-                  {String(selectedArtist.index).padStart(2, "0")}
-                </span>
-                <h2
-                  className="text-primary text-5xl md:text-6xl font-prosperoSemiBold uppercase w-fit border-b border-primary/20"
-                  dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
-                ></h2>
-                <p className="mt-2 text-primary/80 text-lg font-prosperoRegular uppercase tracking-wider">
-                  {selectedArtist.category}
-                </p>
+                <div className="overflow-hidden">
+                  <motion.span
+                    variants={{
+                      hidden: { y: "100%" },
+                      visible: {
+                        y: 0,
+                        transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] },
+                      },
+                      exit: {
+                        y: "-100%",
+                        transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
+                      },
+                    }}
+                    className="text-primary/60 text-xl font-prosperoRegular block"
+                  >
+                    {String(selectedArtist.index).padStart(2, "0")}
+                  </motion.span>
+                </div>
+                <div className="overflow-hidden">
+                  <motion.h2
+                    variants={{
+                      hidden: { y: "100%" },
+                      visible: {
+                        y: 0,
+                        transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] },
+                      },
+                      exit: {
+                        y: "-100%",
+                        transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
+                      },
+                    }}
+                    className="text-primary text-5xl md:text-6xl font-prosperoSemiBold uppercase w-fit border-b border-primary/20 block"
+                    dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
+                  ></motion.h2>
+                </div>
+                <div className="overflow-hidden mt-2">
+                  <motion.p
+                    variants={{
+                      hidden: { y: "100%" },
+                      visible: {
+                        y: 0,
+                        transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] },
+                      },
+                      exit: {
+                        y: "-100%",
+                        transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
+                      },
+                    }}
+                    className="text-primary/80 text-lg font-prosperoRegular uppercase tracking-wider block"
+                  >
+                    {selectedArtist.category}
+                  </motion.p>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -77,7 +134,7 @@ export const CardArtist = ({
               <h3 className="text-primary text-2xl font-prosperoSemiBold uppercase">
                 {title}
               </h3>
-              <span className="block w-[1px] h-full bg-primary" />
+              <span className="block w-1px h-full bg-primary" />
               <p
                 className="text-primary/90 text-base text-start font-prosperoRegular leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: resume }}
@@ -141,22 +198,79 @@ export const CardArtist = ({
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedArtist.person}
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 50 }}
-              transition={{ duration: 0.5 }}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.1,
+                    delayChildren: 0.05,
+                  },
+                },
+                exit: {
+                  transition: {
+                    staggerChildren: 0.05,
+                    staggerDirection: -1,
+                  },
+                },
+              }}
               className="flex flex-col"
             >
-              <span className="text-primary text-xl font-prosperoRegular">
-                {String(selectedArtist.index).padStart(2, "0")}
-              </span>
-              <h2
-                className="text-primary text-2xl md:text-6xl uppercase w-fit border-b border-primary/20"
-                dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
-              ></h2>
-              <p className="mt-2 text-primary text-sm uppercase tracking-wider max-w-52">
-                {selectedArtist.category}
-              </p>
+              <div className="overflow-hidden">
+                <motion.span
+                  variants={{
+                    hidden: { y: "100%" },
+                    visible: {
+                      y: 0,
+                      transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] },
+                    },
+                    exit: {
+                      y: "-100%",
+                      transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
+                    },
+                  }}
+                  className="text-primary text-xl font-prosperoRegular block"
+                >
+                  {String(selectedArtist.index).padStart(2, "0")}
+                </motion.span>
+              </div>
+              <div className="overflow-hidden">
+                <motion.h2
+                  variants={{
+                    hidden: { y: "100%" },
+                    visible: {
+                      y: 0,
+                      transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] },
+                    },
+                    exit: {
+                      y: "-100%",
+                      transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
+                    },
+                  }}
+                  className="text-primary text-2xl md:text-6xl font-prosperoSemiBold uppercase w-fit border-b border-primary/20 block"
+                  dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
+                ></motion.h2>
+              </div>
+              <div className="overflow-hidden mt-2">
+                <motion.p
+                  variants={{
+                    hidden: { y: "100%" },
+                    visible: {
+                      y: 0,
+                      transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] },
+                    },
+                    exit: {
+                      y: "-100%",
+                      transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
+                    },
+                  }}
+                  className="text-primary text-sm uppercase tracking-wider max-w-52 block"
+                >
+                  {selectedArtist.category}
+                </motion.p>
+              </div>
             </motion.div>
           </AnimatePresence>
 
@@ -194,7 +308,7 @@ const TarjetasArtistas = ({
               animate={{ opacity: isDesktop ? 0.4 : 0.8, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.3 }}
-              className="cursor-pointer relative lg:w-72 w-36 lg:h-[24rem] h-56 rounded-lg overflow-hidden"
+              className="cursor-pointer relative lg:w-72 w-36 lg:h-96 h-56 rounded-lg overflow-hidden"
               whileHover={{ opacity: 1, scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -203,14 +317,11 @@ const TarjetasArtistas = ({
                 alt={item.person}
                 className="w-full h-full object-cover object-[calc(31%)]"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+              <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4">
                 <p
                   className="text-primary text-sm font-prosperoSemiBold uppercase"
                   dangerouslySetInnerHTML={{ __html: item.person }}
                 />
-                <p className="text-primary/70 text-xs font-prosperoRegular uppercase mt-1 hidden lg:block">
-                  {item.category}
-                </p>
               </div>
             </motion.div>
           )
