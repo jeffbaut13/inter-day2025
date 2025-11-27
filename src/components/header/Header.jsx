@@ -52,7 +52,7 @@ export const Header = ({ context }) => {
   const [openNav, setopenNav] = useState(false);
 
   // Decidir qué logo usar según el dispositivo
-  const logo = isMobile || isTablet ? "/iconos/logoM.svg" : "/iconos/logo.svg";
+  const logo = isMobile || isTablet ? "/iconos/logoM.svg" : "/iconos/logoN.svg";
 
   const handleClose = () => {
     context?.setOpenForm(true);

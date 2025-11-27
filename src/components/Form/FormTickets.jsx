@@ -87,7 +87,7 @@ export const FormTickets = ({ isOpen, onClose }) => {
 
                 <form
                   onSubmit={handleSubmit(onSubmit)}
-                  className="space-y-6 max-w-md mx-auto"
+                  className="space-y-4 max-w-md mx-auto"
                 >
                   {/* ¿Cuál es tu nombre? */}
                   <div>

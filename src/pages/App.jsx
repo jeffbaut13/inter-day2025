@@ -3,12 +3,11 @@ import { useOutletContext } from "react-router";
 import { Loading } from "@/components/loaders/Loading";
 import { ImgBackground } from "@/components/ui/ImgBackground";
 import { Button } from "@/components/ui/Button";
- 
+
 import { Footer } from "@/components/Footer/Footer";
 import { X } from "lucide-react";
 import { MainSection } from "@/components/Home/MainSection";
 import { CardArtist } from "@/components/ui/CardArtist";
- 
 
 function App() {
   const { isLoading, openForm, setOpenForm } = useOutletContext();
@@ -54,10 +53,10 @@ function App() {
     },
     {
       index: 2,
-      person: "Kapo",
-      category: "AFROBEAT Y REGUETÓN",
-      img: "/imagenes/artistas/kapoN.jpg",
-      imgM: "/imagenes/mobile/kapoMN.jpg",
+      person: "Andy <br/>Rivera",
+      category: "Reggaeton",
+      img: "/imagenes/artistas/andy-riveraN.jpg",
+      imgM: "/imagenes/mobile/andy-riveraNM.jpg",
     },
     {
       index: 3,
@@ -65,6 +64,13 @@ function App() {
       category: "MÚSICA LLANERA",
       img: "/imagenes/artistas/walter-silvaN.jpg",
       imgM: "/imagenes/mobile/walter-silvaMN.jpg",
+    },
+    {
+      index: 4,
+      person: "Los <br/> Clásicos",
+      category: "MÚSICA LLANERA",
+      img: "/imagenes/artistas/los-clasicosN.jpg",
+      imgM: "/imagenes/mobile/los-clasicosMN.jpg",
     },
   ];
 
@@ -97,9 +103,8 @@ function App() {
         title={"Artistas"}
         width={"medium"}
         resume={
-          "Tres grandes de la música nacional<br /> nos acompañan para cerrar <br/>a lo grande este evento."
+          "Cuatro grandes de la música nacional<br /> nos acompañan para cerrar <br/>a lo grande este evento."
         }
-        
       />
       <Footer />
     </>
