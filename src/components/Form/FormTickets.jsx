@@ -78,7 +78,7 @@ export const FormTickets = ({ isOpen, onClose }) => {
             ) : (
               <>
                 <div className="text-center mb-8">
-                  <h2 className="text-primary text-4xl mb-4">TE ESPERAMOS</h2>
+                  <h2 className="text-primary text-4xl mb-4">Te esperamos</h2>
                   <p className="text-primary/80 text-lg ">
                     Comparte con nosotros algunos datos, <br />
                     para hacer efectiva la entrega de tu boleta.
@@ -189,8 +189,9 @@ export const FormTickets = ({ isOpen, onClose }) => {
                     <Button
                       id="submit-ticket"
                       type="submit"
-                      text={isSubmitting ? "ENVIANDO..." : "OBTÉN TU ENTRADA"}
+                      text={isSubmitting ? "Enviando..." : "Obtén tu entrada"}
                       size="full"
+                      color="white"
                       disabled={isSubmitting}
                     />
                   </div>

@@ -2,7 +2,7 @@ import { Button } from "../ui/Button";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useResponsive } from "@/hooks/useResponsive";
 import { motion, AnimatePresence } from "framer-motion";
-import { TextAlignJustify, X } from "lucide-react";
+import { Menu, TextAlignJustify, X } from "lucide-react";
 import { useState } from "react";
 
 // Variantes para el contenedor (stagger de los items)
@@ -47,7 +47,7 @@ const itemVariants = {
 };
 
 export const Header = ({ context }) => {
-  const isButtonVisible = useIntersectionObserver("acquire-ticket");
+  const isTitleVisible = useIntersectionObserver("90vh");
   const { isMobile, isTablet, isDesktop } = useResponsive();
   const [openNav, setopenNav] = useState(false);
 
@@ -60,57 +60,152 @@ export const Header = ({ context }) => {
   };
 
   return (
-    <header className="fixed py-12 w-full h-14 left-0 top-0 px-10 md:px-20 lg:px-40 flex justify-between items-center z-10 bg-linear-to-b from-black/30 to-black/2">
-      <div className="flex flex-col items-center justify-start">
-        <i className="md:w-fit w-36 h-10 inline-block">
-          <img
-            className="size-full object-contain"
-            src={logo}
-            alt="Inter Day Logo"
-          />
-        </i>
-      </div>
-      {isDesktop && (
-        <nav>
-          <ul className="flex items-center gap-8 text-sm">
-            <li className="hover:font-prosperoBold text-primary hover:text-primary transition-all ease-in">
-              <a href="#Conferencistas">SPEAKERS</a>
-            </li>
-            <li className="hover:font-prosperoBold text-primary hover:text-primary transition-all ease-in">
-              <a href="#Artistas">ARTISTAS</a>
-            </li>
-            <AnimatePresence>
-              {!isButtonVisible && (
-                <motion.div
-                  initial={{ width: 0, opacity: 0, scale: 0.8 }}
-                  animate={{ width: "auto", opacity: 1, scale: 1 }}
-                  exit={{ width: 0, opacity: 0, scale: 0.8 }}
-                  transition={{
-                    duration: 0.2,
-                    ease: [0.4, 0.0, 0.2, 1],
-                  }}
-                  className="overflow-hidden"
+    <header className="fixed top-0 left-0 w-full h-18 bg-secundary z-50 px-4 md:px-20 sm:px-10">
+      <div className="lg:grid lg:grid-cols-3 items-center h-full gap-4">
+        {isDesktop && (
+          <>
+            <motion.div
+              className="flex justify-start"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, ease: [0.4, 0.0, 0.2, 1] }}
+            >
+              <i className="h-6 w-auto inline-block">
+                <img
+                  className="size-full object-contain"
+                  src="/iconos/prospero.svg"
+                  alt=""
+                />
+              </i>
+            </motion.div>
+            <motion.div
+              className="flex justify-center"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1, ease: [0.4, 0.0, 0.2, 1] }}
+            >
+              <i className="h-auto w-full max-w-72 inline-block">
+                <img
+                  className="size-full object-contain"
+                  src="/iconos/logoNew.svg"
+                  alt=""
+                />
+              </i>
+            </motion.div>
+            <nav className="flex justify-end">
+              <ul className="text-primary flex items-center justify-end">
+                <motion.li
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.15, ease: [0.4, 0.0, 0.2, 1] }}
+                  className="inline-block mx-4 cursor-pointer hover:opacity-70 transition-opacity"
+                  onClick={() => window.scrollToSection?.("Conferencistas")}
+                >
+                  Speakers
+                </motion.li>
+                <motion.li
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
+                  className="inline-block mx-4 cursor-pointer hover:opacity-70 transition-opacity"
+                  onClick={() => window.scrollToSection?.("Artistas")}
+                >
+                  Artistas
+                </motion.li>
+                <AnimatePresence mode="wait">
+                  {isTitleVisible && (
+                    <motion.li
+                      initial={{ width: 0, opacity: 0, scale: 0.8 }}
+                      animate={{ width: "auto", opacity: 1, scale: 1 }}
+                      exit={{ width: 0, opacity: 0, scale: 0.8 }}
+                      transition={{
+                        duration: 0.3,
+                        ease: [0.4, 0.0, 0.2, 1],
+                      }}
+                      className="overflow-hidden inline-block"
+                    >
+                      <Button
+                        id={"header-acquire-ticket"}
+                        text="Adquiere tu entrada"
+                        size={"small"}
+                        color="white"
+                        onClick={() => context?.setOpenForm(true)}
+                      />
+                    </motion.li>
+                  )}
+                </AnimatePresence>
+              </ul>
+            </nav>
+          </>
+        )}
+        {!isDesktop && (
+          <AnimatePresence mode="wait">
+            {!isTitleVisible ? (
+              <motion.div
+                key="logos"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.3, ease: [0.4, 0.0, 0.2, 1] }}
+                className="flex items-center justify-center gap-4 size-full px-12"
+              >
+                <i className="h-5 w-auto inline-block">
+                  <img
+                    className="size-full object-contain"
+                    src="/iconos/prospero.svg"
+                    alt=""
+                  />
+                </i>
+                <i className="size-full inline-block">
+                  <img
+                    className="size-full object-contain"
+                    src="/iconos/logoNew.svg"
+                    alt=""
+                  />
+                </i>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="menu"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.3, ease: [0.4, 0.0, 0.2, 1] }}
+                className="w-full flex items-center justify-center gap-4 size-full [&_i]:flex-1 [&_i]:flex [&_i]:justify-center [&_i]:items-center"
+              >
+                <motion.figure
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1, ease: [0.4, 0.0, 0.2, 1] }}
+                  className="w-2/4"
+                >
+                  <img className="size-3/5 object-contain" src={logo} alt="" />
+                </motion.figure>
+                <motion.i
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.15, ease: [0.4, 0.0, 0.2, 1] }}
                 >
                   <Button
                     id={"header-acquire-ticket"}
-                    text="ADQUIERE TU ENTRADA"
-                    size={"small"}
-                    color="white"
+                    text="Entrada"
                     onClick={() => context?.setOpenForm(true)}
                   />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </ul>
-        </nav>
-      )}
+                </motion.i>
+                <motion.i
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
+                >
+                  <Menu onClick={() => setopenNav(true)} />
+                </motion.i>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        )}
+      </div>
       {!isDesktop && (
         <>
-          {!openNav && (
-            <button className="opacity-60" onClick={() => setopenNav(true)}>
-              <TextAlignJustify />
-            </button>
-          )}
           <AnimatePresence>
             {openNav && (
               <motion.div
@@ -142,15 +237,17 @@ export const Header = ({ context }) => {
                       variants={itemVariants}
                       className="h-full font-prosperoExtralight text-primary/60 hover:text-primary transition-all ease-in flex justify-center items-center relative overflow-hidden"
                     >
-                      <a
-                        onClick={() => setopenNav(false)}
-                        href="#Conferencistas"
-                        className="relative z-10 flex flex-col items-center justify-center gap-2"
+                      <button
+                        onClick={() => {
+                          window.scrollToSection?.("Conferencistas");
+                          setopenNav(false);
+                        }}
+                        className="relative z-10 flex flex-col items-center justify-center gap-2 [&_span]:w-6 [&_span]:h-0.5 [&_span]:bg-primary/60"
                       >
-                        <span className="w-6 h-[2px] inline-block bg-primary/60" />
+                        <span />
                         SPEAKERS
-                        <span className="w-6 h-[2px] inline-block bg-primary/60" />
-                      </a>
+                        <span />
+                      </button>
                       <motion.img
                         initial={{ scale: 1.2, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -164,21 +261,23 @@ export const Header = ({ context }) => {
                       variants={itemVariants}
                       className="h-full font-prosperoExtralight text-primary/60 hover:text-primary transition-all ease-in flex justify-center items-center relative overflow-hidden"
                     >
-                      <a
-                        onClick={() => setopenNav(false)}
-                        href="#Conferencistas"
-                        className="relative z-10 flex flex-col items-center justify-center gap-2"
+                      <button
+                        onClick={() => {
+                          window.scrollToSection?.("Artistas");
+                          setopenNav(false);
+                        }}
+                        className="relative z-10 flex flex-col items-center justify-center gap-2 [&_span]:w-6 [&_span]:h-0.5 [&_span]:bg-primary/60"
                       >
-                        <span className="w-6 h-[2px] inline-block bg-primary/60" />
-                        SPEAKERS
-                        <span className="w-6 h-[2px] inline-block bg-primary/60" />
-                      </a>
+                        <span />
+                        ARTISTAS
+                        <span />
+                      </button>
                       <motion.img
                         initial={{ scale: 1.2, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="size-full inline-block absolute object-cover -z-10"
-                        src="/imagenes/mobile/section-artistas.jpg"
+                        src="/imagenes/mobile/section-artistasN.jpg"
                         alt="Artistas"
                       />
                     </motion.li>
@@ -188,12 +287,12 @@ export const Header = ({ context }) => {
                     >
                       <button
                         onClick={handleClose}
-                        className="relative z-10 flex flex-col items-center justify-center gap-2"
+                        className="relative z-10 flex flex-col items-center justify-center gap-2 [&_span]:w-6 [&_span]:h-0.5 [&_span]:bg-primary/60"
                         id={"header-acquire-ticket-mobile"}
                       >
-                        <span className="w-6 h-[2px] inline-block bg-primary/60" />
+                        <span />
                         ADQUIERE TU ENTRADA
-                        <span className="w-6 h-[2px] inline-block bg-primary/60" />
+                        <span />
                       </button>
                       <motion.img
                         initial={{ scale: 1.2, opacity: 0 }}

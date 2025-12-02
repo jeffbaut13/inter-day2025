@@ -19,9 +19,9 @@ export const Button = ({ id, text, size, color = "", onClick, type }) => {
       onClick={handleClick}
       className={`${
         color === "white" ? "btn-secondary" : "btn-primary"
-      } group lg:py-2 max-lg:pt-3 max-lg:pb-1.5  ${
+      } group lg:py-2 ${
         size === "small"
-          ? "px-14"
+          ? "px-12"
           : size === "medium"
           ? "px-24"
           : size === "large"
@@ -34,7 +34,7 @@ export const Button = ({ id, text, size, color = "", onClick, type }) => {
       <span
         className={`${
           color === "white"
-            ? "text-primary group-hover:text-secundary"
+            ? "text-secundary"
             : "text-four group-hover:text-secundary"
         }  tracking-wider whitespace-nowrap`}
       >

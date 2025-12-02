@@ -1,35 +1,44 @@
 import { useEffect, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Hook para observar si un elemento está visible en el viewport
- * @param {string} targetId - ID del elemento a observar
- * @param {Object} options - Opciones del IntersectionObserver
- * @returns {boolean} - true si el elemento está visible, false si no
+ * Hook para observar el scroll usando GSAP ScrollTrigger
+ * @param {string} threshold - Umbral en vh para activar el estado
+ * @returns {boolean} - true si pasamos el umbral, false si estamos antes
  */
-export const useIntersectionObserver = (targetId, options = {}) => {
-  const [isVisible, setIsVisible] = useState(true);
+export const useIntersectionObserver = (threshold = "40vh") => {
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const target = document.getElementById(targetId);
+    // Usar el evento de scroll para calcular manualmente el porcentaje
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      
+      // Convertir el threshold de vh a pixels
+      const thresholdValue = parseFloat(threshold);
+      const thresholdPx = (viewportHeight * thresholdValue) / 100;
+      
+      if (scrollY >= thresholdPx) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    // Llamar una vez al inicio
+    handleScroll();
     
-    if (!target) {
-      console.warn(`Element with id "${targetId}" not found`);
-      return;
-    }
-
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsVisible(entry.isIntersecting);
-    }, {
-      threshold: 0.1,
-      ...options,
-    });
-
-    observer.observe(target);
+    // Agregar listener
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [targetId, options]);
+  }, [threshold]);
 
   return isVisible;
 };

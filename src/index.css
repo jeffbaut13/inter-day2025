@@ -30,13 +30,13 @@
 }
 @layer component {
   .btn-primary {
-    @apply cursor-pointer relative font-prosperoSemiBold rounded-full transition-all ease-in bg-transparent;
+    @apply cursor-pointer relative font-prosperoSemiBold rounded-md transition-all ease-in bg-transparent max-lg:pt-2 max-lg:pb-1;
   }
   .btn-primary:hover {
     @apply hover:bg-linear-to-r from-four to-third;
   }
   .btn-primary::before {
-    @apply absolute rounded-full;
+    @apply absolute rounded-md;
     content: "";
     inset: -1px;
     padding: 1px;
@@ -51,7 +51,7 @@
     transition: all ease-in 0.3s;
   }
   .btn-secondary {
-    @apply cursor-pointer relative font-prosperoExtralight rounded-full border border-primary bg-transparent hover:bg-primary;
+    @apply cursor-pointer relative font-prosperoBold lg:rounded-full rounded-md bg-primary hover:opacity-75 transition-all ease-in text-secundary max-lg:pt-3.5 max-lg:pb-2.5;
   }
   .text-gradient {
     background: linear-gradient(to right, var(--four) 0%, var(--third) 100%);
@@ -62,7 +62,30 @@
     text-transform: uppercase;
   }
   .input-field {
-    @apply w-full bg-transparent border rounded-full border-primary/20 text-primary placeholder:text-primary/40 py-3 px-4 focus:outline-none focus:border-four transition-colors font-prosperoRegular;
+    @apply w-full bg-transparent border lg:rounded-full rounded-md border-primary/20 text-primary placeholder:text-primary/40 py-3 px-4 focus:outline-none focus:border-four transition-colors font-prosperoRegular;
+  }
+  .bg-gradient-radial-speakers {
+    background: radial-gradient(
+      circle at center,
+      #67686f 20%,
+      #27282c 90%,
+      #27282c 90%
+    );
+  }
+  .bg-gradient-radial-artists {
+    background: radial-gradient(
+      circle at center,
+      #3a3e40 20%,
+      #050607 90%,
+      #050607 90%
+    );
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -92,7 +115,7 @@
   box-sizing: border-box;
 }
 html {
-  @apply overflow-x-hidden xl:text-[0.8333339vw] max-sm:text-[3.5vw] sm:text-[1.5vw] lg:text-[1vw] bg-primary lg:h-screen;
+  @apply overflow-x-hidden xl:text-[0.8333339vw] max-sm:text-[3.5vw] sm:text-[1.5vw] lg:text-[1vw] bg-primary;
 
   scroll-behavior: smooth;
   /* @apply overflow-x-hidden xl:text-[16px] max-sm:text-[4vw] sm:text-[1.5vw] lg:text-[1vw] scroll-smooth bg-black; */

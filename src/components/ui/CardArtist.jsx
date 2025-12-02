@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ImgBackground } from "./ImgBackground";
 import { useResponsive } from "@/hooks/useResponsive";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 
 export const CardArtist = ({
   artist,
@@ -10,16 +10,28 @@ export const CardArtist = ({
   resume,
   overlay = false,
   width = "full",
+  selectedIndex: externalSelectedIndex,
+  setSelectedIndex: externalSetSelectedIndex,
+  onClose,
 }) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [internalSelectedIndex, setInternalSelectedIndex] = useState(0);
   const [isContentOpen, setIsContentOpen] = useState(false);
+  const [activeSummary, setActiveSummary] = useState(false);
+
+  // Usar índice externo si se proporciona, de lo contrario usar el interno
+  const selectedIndex =
+    externalSelectedIndex !== undefined
+      ? externalSelectedIndex
+      : internalSelectedIndex;
+  const setSelectedIndex = externalSetSelectedIndex || setInternalSelectedIndex;
+
   const selectedArtist = artist[selectedIndex];
   const { isDesktop } = useResponsive();
 
   return (
-    <section
+    <div
       id={title}
-      className="snap-start snap-always w-full h-dvh overflow-hidden relative"
+      className="snap-start snap-always w-full h-full overflow-hidden relative"
     >
       <AnimatePresence mode="wait">
         <motion.div
@@ -38,6 +50,16 @@ export const CardArtist = ({
       </AnimatePresence>
       {isDesktop ? (
         <div className="flex flex-col justify-around lg:flex-row size-full px-4 md:px-20 lg:px-40 lg:py-16 max-lg:pt-46">
+          {/* Botón cerrar */}
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="absolute cursor-pointer top-30 right-8 text-primary/60 hover:text-primary text-lg font-prosperoSemiBold transition-colors z-50"
+            >
+              <X size={28} />
+            </button>
+          )}
+
           {/* Lado izquierdo - Información del artista */}
           <div className="lg:w-1/2 w-full lg:h-full h-1/3 flex flex-col lg:justify-center justify-start items-start">
             <AnimatePresence mode="wait">
@@ -76,7 +98,7 @@ export const CardArtist = ({
                         transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
                       },
                     }}
-                    className="text-primary/60 text-xl font-prosperoRegular block"
+                    className="text-primary text-xl font-prosperoRegular block"
                   >
                     {String(selectedArtist.index).padStart(2, "0")}
                   </motion.span>
@@ -94,7 +116,7 @@ export const CardArtist = ({
                         transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
                       },
                     }}
-                    className="text-primary text-5xl md:text-6xl font-prosperoBold uppercase w-fit border-b border-primary/20 block"
+                    className="text-primary text-5xl md:text-6xl font-prosperoExtralight tracking-tighter w-fit block"
                     dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
                   ></motion.h2>
                 </div>
@@ -111,10 +133,38 @@ export const CardArtist = ({
                         transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
                       },
                     }}
-                    className="text-primary/80 text-lg font-prosperoRegular uppercase tracking-wider block"
+                    onClick={() => setActiveSummary(!activeSummary)}
+                    className="cursor-pointer text-primary text-lg tracking-wider flex items-center gap-4"
                   >
                     {selectedArtist.category}
+                    <i
+                      className={`${
+                        activeSummary ? "rotate-180" : ""
+                      } inline-block transition-transform duration-300 ease-in-out`}
+                    >
+                      <ChevronDown />
+                    </i>
                   </motion.p>
+                  <AnimatePresence mode="wait">
+                    {activeSummary && (
+                      <motion.p
+                        key={selectedArtist.summary}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        variants={{
+                          hidden: { opacity: 0, height: 0 },
+                          visible: { opacity: 1, height: "auto" },
+                          exit: { opacity: 0, height: 0 },
+                        }}
+                        transition={{ duration: 0.4, ease: [0.4, 0.0, 0.2, 1] }}
+                        className="text-primary text-base mt-4"
+                        dangerouslySetInnerHTML={{
+                          __html: selectedArtist.summary,
+                        }}
+                      />
+                    )}
+                  </AnimatePresence>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -147,54 +197,20 @@ export const CardArtist = ({
               selectedIndex={selectedIndex}
               setSelectedIndex={setSelectedIndex}
               isDesktop={isDesktop}
+              setActiveSummary={setActiveSummary}
             />
           </div>
         </div>
       ) : (
-        <div className="flex flex-col justify-evenly size-full px-4 md:px-20 lg:px-40 lg:py-16 py-8 gap-12">
-          <div
-            className={`text-right w-full flex flex-col justify-center items-center gap-4 ${
-              width === "medium" ? "max-w-lg" : "max-w-full"
-            }`}
-          >
+        <div className="flex flex-col justify-around size-full px-4 md:px-20 lg:px-40 lg:py-16 py-8 gap-12">
+          {onClose && (
             <button
-              onClick={() => setIsContentOpen(!isContentOpen)}
-              className="w-full flex justify-between items-center cursor-pointer"
+              onClick={onClose}
+              className="cursor-pointer text-primary/60 hover:text-primary text-lg font-prosperoSemiBold transition-colors z-50 self-end"
             >
-              <h3 className="text-primary text-2xl font-prosperoBold uppercase">
-                {title}
-              </h3>
-              <motion.div
-                animate={{ rotate: isContentOpen ? 180 : 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              >
-                <ChevronDown />
-              </motion.div>
+              <X size={28} />
             </button>
-
-            {/* contenido */}
-            <AnimatePresence>
-              {isContentOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: [0.4, 0.0, 0.2, 1] }}
-                  className="overflow-hidden w-full"
-                >
-                  <motion.p
-                    initial={{ y: -10 }}
-                    animate={{ y: 0 }}
-                    exit={{ y: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-full text-primary/90 text-base text-start font-prosperoRegular leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: resume }}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
+          )}
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedArtist.person}
@@ -236,6 +252,7 @@ export const CardArtist = ({
                   {String(selectedArtist.index).padStart(2, "0")}
                 </motion.span>
               </div>
+
               <div className="overflow-hidden">
                 <motion.h2
                   variants={{
@@ -253,6 +270,7 @@ export const CardArtist = ({
                   dangerouslySetInnerHTML={{ __html: selectedArtist.person }}
                 ></motion.h2>
               </div>
+
               <div className="overflow-hidden mt-2">
                 <motion.p
                   variants={{
@@ -266,10 +284,41 @@ export const CardArtist = ({
                       transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] },
                     },
                   }}
-                  className="text-primary text-sm uppercase tracking-wider max-w-52 block"
+                  onClick={() => setActiveSummary(!activeSummary)}
+                  className="cursor-pointer text-primary lg:text-lg text-md tracking-wider flex items-start gap-4 max-w-42"
                 >
                   {selectedArtist.category}
+                  <i
+                    className={`${
+                      activeSummary ? "rotate-180" : ""
+                    } inline-block transition-transform duration-300 ease-in-out`}
+                  >
+                    <ChevronDown />
+                  </i>
                 </motion.p>
+                <AnimatePresence mode="wait">
+                  {activeSummary && (
+                    <motion.p
+                      key={selectedArtist.summary}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      variants={{
+                        hidden: { opacity: 0, height: 0 },
+                        visible: { opacity: 1, height: "auto" },
+                        exit: { opacity: 0, height: 0 },
+                      }}
+                      transition={{ duration: 0.4, ease: [0.4, 0.0, 0.2, 1] }}
+                      className="text-primary text-base mt-4 max-w-62"
+                      dangerouslySetInnerHTML={{
+                        __html: selectedArtist.summary.replace(
+                          /<br\s*\/?>/gi,
+                          " "
+                        ),
+                      }}
+                    />
+                  )}
+                </AnimatePresence>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -279,10 +328,11 @@ export const CardArtist = ({
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}
             isDesktop={isDesktop}
+            setActiveSummary={setActiveSummary}
           />
         </div>
       )}
-    </section>
+    </div>
   );
 };
 
@@ -291,6 +341,7 @@ const TarjetasArtistas = ({
   selectedIndex,
   setSelectedIndex,
   isDesktop,
+  setActiveSummary,
 }) => {
   return (
     <div
@@ -303,7 +354,10 @@ const TarjetasArtistas = ({
           selectedIndex !== index && (
             <motion.div
               key={item.index}
-              onClick={() => setSelectedIndex(index)}
+              onClick={() => {
+                setActiveSummary(false);
+                setSelectedIndex(index);
+              }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: isDesktop ? 0.4 : 0.8, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
@@ -329,4 +383,3 @@ const TarjetasArtistas = ({
     </div>
   );
 };
-

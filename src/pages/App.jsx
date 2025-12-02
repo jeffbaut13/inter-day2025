@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer/Footer";
 import { X } from "lucide-react";
 import { MainSection } from "@/components/Home/MainSection";
 import { CardArtist } from "@/components/ui/CardArtist";
+import { ScrollMotion } from "@/components/Home/ScrollMotion";
 
 function App() {
   const { isLoading, openForm, setOpenForm } = useOutletContext();
@@ -16,30 +17,38 @@ function App() {
     {
       index: 1,
       person: "Norman <br/> Chaparro",
-      category: "Tiempo para aprender",
+      category: "Mejor ser que parecer",
       img: "/imagenes/conferencistas/norman-chaparroN.jpg",
       imgM: "/imagenes/mobile/norman-chaparroMN.jpg",
+      summary:
+        "Fundador y presidente de Inter Rapidísimo, inició su <br /> empresa en una bicicleta hace más de 30 años y hoy <br /> sigue inspirando a emprendedores, empresarios desde <br /> un liderazgo empático, con propósito y convicción",
     },
     {
       index: 2,
       person: "Yokoi <br/> Kenji",
-      category: "Conectando propósito con acción",
+      category: "Liderazgo - código samurai",
       img: "/imagenes/conferencistas/Yokoi-KenjiN.jpg",
       imgM: "/imagenes/mobile/yokoi-kenjiMN.jpg",
+      summary:
+        "Su historia une disciplina, sensibilidad <br /> y propósito. Con una voz que conecta <br /> generaciones, habla de salud mental,<br/> equilibrio y sentido de vida.",
     },
     {
       index: 3,
       person: "Oscar <br/> Córdoba",
-      category: "Felicidad, liderazgo y marca personal",
+      category: "12 pasos para atrapar la felicidad",
       img: "/imagenes/conferencistas/oscar-cordovaN.jpg",
       imgM: "/imagenes/mobile/oscar-cordovaMN.jpg",
+      summary:
+        "Su historia une disciplina, sensibilidad <br /> y propósito. Con una voz que conecta <br /> generaciones, habla de salud mental,<br/> equilibrio y sentido de vida.",
     },
     {
       index: 4,
       person: "Isaac <br/> Chaparro",
-      category: "Entregar es mejor que recibir",
+      category: "El arte del Storyfeeling",
       img: "/imagenes/conferencistas/isaac-chaparroN.jpg",
       imgM: "/imagenes/mobile/isaac-chaparroMN.jpg",
+      summary:
+        "Vicepresidente Creativo en Inter Rapidísimo,<br/> lidera una visión que apuesta por la emoción,<br/> lo auténtico y lo inspirador. Sus ideas han <br/>transformado la forma de comunicar y contar<br/> historias.",
     },
   ];
 
@@ -50,6 +59,8 @@ function App() {
       category: "Música Llanera",
       img: "/imagenes/artistas/luis-silvaN.jpg",
       imgM: "/imagenes/mobile/luis-silvaMN.jpg",
+      summary:
+        "Trae su voz como testimonio del valor de lo auténtico, <br />del respeto por las raíces y como exponente <br />de la música llanera.",
     },
     {
       index: 2,
@@ -57,6 +68,8 @@ function App() {
       category: "Reggaeton",
       img: "/imagenes/artistas/andy-riveraN.jpg",
       imgM: "/imagenes/mobile/andy-riveraNM.jpg",
+      summary:
+        "Llega a Inter Day con su energía y versatilidad. <br />Sus más grandes éxitos lo consolidaron como referente <br />en la escena urbana.",
     },
     {
       index: 3,
@@ -64,13 +77,17 @@ function App() {
       category: "MÚSICA LLANERA",
       img: "/imagenes/artistas/walter-silvaN.jpg",
       imgM: "/imagenes/mobile/walter-silvaMN.jpg",
+      summary:
+        "Su canto invita a reconectar con recuerdos <br /> y alma del folclor llanero. Con su talento <br />fue merecedor de dos nominaciones <br />a los Grammy Latino.",
     },
     {
       index: 4,
       person: "Los <br/> Clásicos",
-      category: "MÚSICA LLANERA",
+      category: "Boleros",
       img: "/imagenes/artistas/los-clasicosN.jpg",
       imgM: "/imagenes/mobile/los-clasicosMN.jpg",
+      summary:
+        "Este grupo de adultos mayores se hizo viral <br />con su canción “+de75” y hoy demuestra que <br />nunca es tarde para soñar.",
     },
   ];
 
@@ -88,25 +105,7 @@ function App() {
         )}
       </AnimatePresence>
 
-      <MainSection />
-
-      <CardArtist
-        artist={conferencistas}
-        title={"Conferencistas"}
-        width={"full"}
-        resume={
-          'En INTER DAY te esperan voces que inspiran,<br /> motivan y nos recuerdan por qué<br/> <span class="font-prosperoBold">vale la pena seguir entregando.</span>'
-        }
-      />
-      <CardArtist
-        artist={artistas}
-        title={"Artistas"}
-        width={"medium"}
-        resume={
-          "Cuatro grandes de la música nacional<br /> nos acompañan para cerrar <br/>a lo grande este evento."
-        }
-      />
-      <Footer />
+      <ScrollMotion conferencistas={conferencistas} artistas={artistas} />
     </>
   );
 }

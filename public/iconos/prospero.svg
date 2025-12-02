@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="uuid-449b6538-8cee-4cd1-a5f2-d089b0f618c2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 15.4 18.12">
+  <defs>
+    <linearGradient id="uuid-9d27339a-539f-4b41-b9f2-bcebee72e177" data-name="Degradado sin nombre 131" x1="11.35" y1="-14.98" x2="11.35" y2="63.58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f1d596"/>
+      <stop offset="1" stop-color="#91631f"/>
+    </linearGradient>
+    <linearGradient id="uuid-ec1b4898-b530-4c74-b7ab-f6b55a2d1f92" data-name="Degradado sin nombre 131" x1="6.72" y1="-14.98" x2="6.72" y2="63.58" xlink:href="#uuid-9d27339a-539f-4b41-b9f2-bcebee72e177"/>
+    <linearGradient id="uuid-65c71b80-fccb-46ed-bfb9-24d3d3f61b73" data-name="Degradado sin nombre 131" x1="5.37" y1="-14.98" x2="5.37" y2="63.58" xlink:href="#uuid-9d27339a-539f-4b41-b9f2-bcebee72e177"/>
+    <linearGradient id="uuid-8f097397-476b-4243-88d6-f3f00c6fb6c2" data-name="Degradado sin nombre 131" x1="1.06" y1="-14.98" x2="1.06" y2="63.58" xlink:href="#uuid-9d27339a-539f-4b41-b9f2-bcebee72e177"/>
+    <linearGradient id="uuid-e4d0db99-b765-444d-a0c8-db013a65dd21" data-name="Degradado sin nombre 131" x1="4.11" y1="-14.98" x2="4.11" y2="63.58" xlink:href="#uuid-9d27339a-539f-4b41-b9f2-bcebee72e177"/>
+    <linearGradient id="uuid-d2c84f89-69a1-481b-b543-a2df417db2a3" data-name="Degradado sin nombre 131" x1="1.82" y1="-14.98" x2="1.82" y2="63.58" xlink:href="#uuid-9d27339a-539f-4b41-b9f2-bcebee72e177"/>
+    <linearGradient id="uuid-9291903e-1eeb-41b9-ad37-780dcd7e1ca2" data-name="Degradado sin nombre 131" x1="12.58" y1="-14.98" x2="12.58" y2="63.58" xlink:href="#uuid-9d27339a-539f-4b41-b9f2-bcebee72e177"/>
+  </defs>
+  <g id="uuid-48c3dddf-5bdb-4bf4-a6ec-468fad82d8d2" data-name="Capa 1">
+    <g>
+      <path d="M11.35,2.57c.71,0,1.28-.58,1.28-1.28s-.58-1.28-1.28-1.28-1.28.58-1.28,1.28.58,1.28,1.28,1.28" style="fill: url(#uuid-9d27339a-539f-4b41-b9f2-bcebee72e177);"/>
+      <path d="M10.89,10.14s-.1-.07-.15-.09h0,0s-.03-.02-.05-.03l-.74-.41-3.03-1.75h0s-.01,0-.01,0l-4.74,8.21-.22.37s-.06.09-.08.13h0s0,0,0,0c0,.01-.01.03-.02.04h0s0,0,0,0c-.06.13-.09.28-.09.44,0,.58.44,1.06.98,1.06.32,0,.61-.17.79-.43l.27-.47,1.26-2.18,5.17-1.39c.06-.01.12-.03.18-.05h.06s0-.02,0-.02c.71-.26,1.22-.99,1.22-1.84,0-.38-.1-.73-.27-1.03-.13-.23-.31-.43-.53-.59M8.11,12.17l-1.65.44,1.18-2.05.6.35,1.44.83-1.58.42Z" style="fill: url(#uuid-ec1b4898-b530-4c74-b7ab-f6b55a2d1f92);"/>
+      <path d="M2.27,9.28l.16.45.45-.08.12-.02,2.17-.37-.93-.54,1.78-3.08,2.51-.53h0c.41-.11.71-.5.71-.98,0-.55-.41-1-.93-1-.08,0-.16.01-.23.03l-3.33.71h0s-2.22,3.84-2.22,3.84l-1.02-.6.73,2.05.04.11Z" style="fill: url(#uuid-65c71b80-fccb-46ed-bfb9-24d3d3f61b73);"/>
+      <polygon points="1.39 7.17 0 9.55 2.12 9.19 1.39 7.17" style="fill: url(#uuid-8f097397-476b-4243-88d6-f3f00c6fb6c2);"/>
+      <polygon points="3.77 11.79 5.18 9.38 3.04 9.74 3.77 11.79" style="fill: url(#uuid-e4d0db99-b765-444d-a0c8-db013a65dd21);"/>
+      <polygon points="2.92 9.76 2.47 9.84 2.36 9.86 2.32 9.75 2.16 9.3 0 9.67 3.65 11.8 2.92 9.76" style="fill: url(#uuid-d2c84f89-69a1-481b-b543-a2df417db2a3);"/>
+      <path d="M14.47,2.92c-.35,0-.66.19-.82.48-.03.05-.05.1-.07.15h0s-.09.21-.09.21l-.68,1.53s0,0,0,0h-2.02s0,0,0,0l-1.01,1.82s0,0,0,0h4.26s0,0,0,0h0s0-.02,0-.02c0,0,0,0,0,0l1.08-2.41.24-.55s0,0,0,0c.03-.09.04-.18.04-.27,0-.52-.42-.94-.94-.94" style="fill: url(#uuid-9291903e-1eeb-41b9-ad37-780dcd7e1ca2);"/>
+    </g>
+  </g>
+</svg>
