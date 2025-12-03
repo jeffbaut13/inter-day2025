@@ -172,10 +172,6 @@ export const CardArtist = ({
 
           {/* Lado derecho - Título, descripción y tarjetas */}
           <div className="lg:w-1/2 w-full lg:h-full h-full flex flex-col lg:justify-center justify-start lg:gap-16 gap-40 lg:items-center items-start">
-            {overlay && (
-              <div className="absolute size-full top-0 left-0 -z-10 bg-black/30" />
-            )}
-
             <div
               className={`text-right w-full flex justify-center items-center gap-4 ${
                 width === "medium" ? "max-w-lg" : "max-w-full"
@@ -234,6 +230,12 @@ export const CardArtist = ({
               }}
               className="flex flex-col"
             >
+              {overlay && (
+                <>
+                <div className="absolute overlay size-full top-0 left-0 -z-10 bg-linear-to-t from-black/80 from-30% to-70%" />
+                <div className="absolute overlay size-full top-0 left-0 -z-10 bg-linear-to-r from-black/60 from-10% " />
+                </>
+              )}
               <div className="overflow-hidden">
                 <motion.span
                   variants={{
@@ -309,7 +311,7 @@ export const CardArtist = ({
                         exit: { opacity: 0, height: 0 },
                       }}
                       transition={{ duration: 0.4, ease: [0.4, 0.0, 0.2, 1] }}
-                      className="text-primary text-base mt-4 max-w-62"
+                      className="text-primary text-base mt-4 max-w-50"
                       dangerouslySetInnerHTML={{
                         __html: selectedArtist.summary.replace(
                           /<br\s*\/?>/gi,

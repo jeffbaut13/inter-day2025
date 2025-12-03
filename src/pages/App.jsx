@@ -24,15 +24,6 @@ function App() {
         "Fundador y presidente de Inter Rapidísimo, inició su <br /> empresa en una bicicleta hace más de 30 años y hoy <br /> sigue inspirando a emprendedores, empresarios desde <br /> un liderazgo empático, con propósito y convicción",
     },
     {
-      index: 2,
-      person: "Yokoi <br/> Kenji",
-      category: "Liderazgo - código samurai",
-      img: "/imagenes/conferencistas/Yokoi-KenjiN.jpg",
-      imgM: "/imagenes/mobile/yokoi-kenjiMN.jpg",
-      summary:
-        "Su historia une disciplina, sensibilidad <br /> y propósito. Con una voz que conecta <br /> generaciones, habla de salud mental,<br/> equilibrio y sentido de vida.",
-    },
-    {
       index: 3,
       person: "Oscar <br/> Córdoba",
       category: "12 pasos para atrapar la felicidad",
@@ -85,7 +76,7 @@ function App() {
       person: "Los <br/> Clásicos",
       category: "Boleros",
       img: "/imagenes/artistas/los-clasicosN.jpg",
-      imgM: "/imagenes/mobile/los-clasicosMN.jpg",
+      imgM: "/imagenes/mobile/los-clasicosMNew.jpg",
       summary:
         "Este grupo de adultos mayores se hizo viral <br />con su canción “+de75” y hoy demuestra que <br />nunca es tarde para soñar.",
     },

@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "../ui/Button";
 import { CardArtist } from "../ui/CardArtist";
+import { useResponsive } from "@/hooks/useResponsive";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,6 +17,7 @@ export const ScrollMotion = ({ conferencistas, artistas }) => {
   const artistasRef = useRef(null);
   const [selectedSpeaker, setSelectedSpeaker] = useState(null);
   const [selectedArtist, setSelectedArtist] = useState(null);
+  const { isDesktop } = useResponsive();
 
   const scrollToSection = (sectionId) => {
     if (!containerRef.current) return;
@@ -104,7 +106,7 @@ export const ScrollMotion = ({ conferencistas, artistas }) => {
       {/* Contenedor que genera el scroll */}
       <div ref={containerRef} className="relative" style={{ height: "400vh" }}>
         {/* Main - fijo detrás del scroller */}
-        <Main ref={mainRef} />
+        <Main ref={mainRef} isDesktop={isDesktop} />
 
         {/* Scroller - inicialmente fuera de pantalla, entra desde abajo */}
         <div
@@ -115,6 +117,7 @@ export const ScrollMotion = ({ conferencistas, artistas }) => {
           <div className="scroller-content will-change-transform">
             <Speakers
               ref={speakersRef}
+              isDesktop={isDesktop}
               title="Speakers <br /> confirmados"
               description="En Inter Day te esperan voces que inspiran, <br /> motivan y nos recuerdan por qué vale <br /> la pena seguir entregando."
               items={conferencistas}
@@ -123,12 +126,14 @@ export const ScrollMotion = ({ conferencistas, artistas }) => {
             />
             <Speakers
               ref={artistasRef}
+              isDesktop={isDesktop}
               artist={true}
               title="Artistas"
               description="Cuatro grandes de la música nacional nos acompañan <br /> para cerrar a lo grande este evento"
               items={artistas}
               selectedIndex={selectedArtist}
               setSelectedIndex={setSelectedArtist}
+              overlay={true}
             />
           </div>
         </div>
@@ -145,10 +150,14 @@ const Speakers = ({
   items,
   selectedIndex,
   setSelectedIndex,
+  isDesktop,
+  overlay = false,
 }) => {
   const sliderRef = useRef(null);
   const [clickStartTime, setClickStartTime] = useState(0);
   const [hasMoved, setHasMoved] = useState(false);
+  const touchStartRef = useRef({ x: 0, y: 0 });
+  const isHorizontalScrollRef = useRef(false);
 
   const handleMouseDown = (e) => {
     setClickStartTime(Date.now());
@@ -158,6 +167,13 @@ const Speakers = ({
   const handleTouchStart = (e) => {
     setClickStartTime(Date.now());
     setHasMoved(false);
+    isHorizontalScrollRef.current = false;
+
+    const touch = e.touches[0];
+    touchStartRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
   };
 
   const handleMouseMove = (e) => {
@@ -169,6 +185,20 @@ const Speakers = ({
   const handleTouchMove = (e) => {
     if (clickStartTime > 0) {
       setHasMoved(true);
+    }
+
+    const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - touchStartRef.current.x);
+    const deltaY = Math.abs(touch.clientY - touchStartRef.current.y);
+
+    // Determinar la dirección del scroll en el primer movimiento
+    if (!isHorizontalScrollRef.current && (deltaX > 5 || deltaY > 5)) {
+      isHorizontalScrollRef.current = deltaX > deltaY;
+    }
+
+    // Si está scrolleando horizontalmente, prevenir el scroll vertical de la página
+    if (isHorizontalScrollRef.current && deltaX > deltaY) {
+      e.preventDefault();
     }
   };
 
@@ -197,31 +227,35 @@ const Speakers = ({
         <div className="size-full z-10 flex flex-col justify-center items-center gap-12">
           {selectedIndex === null ? (
             <>
-              <div className="flex lg:gap-8 gap-2 flex-col lg:flex-row h-min lg:items-center max-lg:px-8">
+              <div className="flex lg:gap-8 gap-2 flex-col lg:flex-row h-min lg:items-center max-lg:px-8 text-center">
                 <h2
                   dangerouslySetInnerHTML={{
-                    __html: title.replace(/<br\s*\/?>/gi, " "),
+                    __html: !isDesktop
+                      ? title.replace(/<br\s*\/?>/gi, " ")
+                      : title,
                   }}
-                  className="lg:text-6xl text-2xl lg:font-prosperoExtralight -tracking-wider"
+                  className="lg:text-6xl text-xl lg:font-prosperoExtralight -tracking-wider"
                 />
                 <span className="w-px h-20 bg-primary hidden lg:block" />
                 <p
                   dangerouslySetInnerHTML={{
-                    __html: description.replace(/<br\s*\/?>/gi, " "),
+                    __html: !isDesktop
+                      ? description.replace(/<br\s*\/?>/gi, " ")
+                      : description,
                   }}
                   className="lg:text-xl lg:max-w-3xl font-prosperoExtralight"
                 />
               </div>
 
               {/* Galería de miniaturas - Desktop normal, Mobile slider */}
-              <div className="w-full px-4 overflow-hidden">
+              <div className="w-full px-4  ">
                 <div
                   ref={sliderRef}
                   onMouseDown={handleMouseDown}
                   onMouseMove={handleMouseMove}
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
-                  className="flex gap-6 justify-start lg:justify-center pb-4 overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory lg:snap-none lg:cursor-default select-none touch-pan-x"
+                  className="flex gap-6 justify-start lg:justify-center pb-4 overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory lg:snap-none lg:cursor-default select-none"
                   style={{
                     WebkitOverflowScrolling: "touch",
                   }}
@@ -256,6 +290,7 @@ const Speakers = ({
               className="size-full"
             >
               <CardArtist
+                overlay={overlay ? true : false}
                 artist={items}
                 selectedIndex={selectedIndex}
                 setSelectedIndex={setSelectedIndex}
@@ -269,7 +304,16 @@ const Speakers = ({
   );
 };
 
-const Main = ({ ref }) => {
+const Main = ({ ref, isDesktop }) => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+    }
+  }, []);
+
   return (
     <>
       <main
@@ -279,33 +323,51 @@ const Main = ({ ref }) => {
       >
         <div className="size-full bg-secundary rounded-md overflow-hidden relative">
           <video
+            ref={videoRef}
+            defaultMuted={true}
+            muted={true}
             className="size-full object-cover scale-125 z-1"
             autoPlay
             loop
-            muted
             playsInline
+            preload="auto"
+            poster="/imagenes/poster.jpg"
           >
-            <source src="/videos/videobackNew.mp4" type="video/mp4" />
+            <source src="/videos/videobackNewBack.mp4" />
           </video>
           <div className="size-full absolute top-0 left-0 flex z-10 flex-col justify-center items-center text-center lg:px-10 bg-black/60 text-primary">
-            <h1 className="lg:text-6xl lg:leading-14 text-3xl tracking-tighter font-prosperoExtralight mb-20">
+            <h1 className="lg:text-5xl lg:leading-14 text-2xl tracking-tighter lg:font-prosperoExtralight font-prosperoBold mb-20">
               Los talentos que nos mueven <br /> y las ideas que nos inspiran{" "}
               <br />
               reunidos en esta entrega.
             </h1>
-            <h2 className="mb-8 lg:text-xl">
+            <div className="mb-8 lg:text-xl">
               {" "}
-              13 de Diciembre / Coliseo Álvaro Meza Amaya,{" "}
-              <br className="block lg:hidden" /> Villavicencio, Meta.
-            </h2>
+              {isDesktop ? (
+                <>
+                  13 de Diciembre / Coliseo Álvaro Meza Amaya,{" "}
+                  <br className="block lg:hidden" /> Villavicencio, Meta.
+                </>
+              ) : (
+                <>
+                  <p className="font-prosperoBold text-2xl mb-4">
+                    13 · dic · 25
+                  </p>
+                  <p className="text-lg">Coliseo Álvaro Meza Amaya</p>
+                  <p className="text-lg">Villavicencio, Meta.</p>
+                </>
+              )}
+            </div>
 
             <Button
               id={"acquire-ticket"}
-              text="Adquiere tu entrada"
+              text="Entradas"
               size={"small"}
               color="white"
             />
-            <span className="absolute text-sm text-primary/60 bottom-18 -right-8 -rotate-90">PULEP: TQK951</span>
+            <span className="absolute text-sm text-primary/60 bottom-18 -right-8 -rotate-90">
+              PULEP: TQK951
+            </span>
           </div>
         </div>
       </main>

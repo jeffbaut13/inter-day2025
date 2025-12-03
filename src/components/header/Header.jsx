@@ -126,7 +126,7 @@ export const Header = ({ context }) => {
                     >
                       <Button
                         id={"header-acquire-ticket"}
-                        text="Adquiere tu entrada"
+                        text="Entradas"
                         size={"small"}
                         color="white"
                         onClick={() => context?.setOpenForm(true)}
@@ -245,7 +245,7 @@ export const Header = ({ context }) => {
                         className="relative z-10 flex flex-col items-center justify-center gap-2 [&_span]:w-6 [&_span]:h-0.5 [&_span]:bg-primary/60"
                       >
                         <span />
-                        SPEAKERS
+                        Speakers
                         <span />
                       </button>
                       <motion.img
@@ -269,7 +269,7 @@ export const Header = ({ context }) => {
                         className="relative z-10 flex flex-col items-center justify-center gap-2 [&_span]:w-6 [&_span]:h-0.5 [&_span]:bg-primary/60"
                       >
                         <span />
-                        ARTISTAS
+                        Artistas
                         <span />
                       </button>
                       <motion.img
@@ -291,7 +291,7 @@ export const Header = ({ context }) => {
                         id={"header-acquire-ticket-mobile"}
                       >
                         <span />
-                        ADQUIERE TU ENTRADA
+                        Entradas
                         <span />
                       </button>
                       <motion.img
