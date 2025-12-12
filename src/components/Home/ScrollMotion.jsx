@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PartyPopper } from "lucide-react";
 import { Button } from "../ui/Button";
 import { CardArtist } from "../ui/CardArtist";
 import { useResponsive } from "@/hooks/useResponsive";
@@ -86,7 +87,7 @@ export const ScrollMotion = ({ conferencistas, artistas }) => {
       .to(
         [main, scroller],
         {
-          y: "-100vh",
+          y: "-200vh",
           ease: "none",
         },
         0.5
@@ -104,7 +105,7 @@ export const ScrollMotion = ({ conferencistas, artistas }) => {
       <div className="h-18" />
 
       {/* Contenedor que genera el scroll */}
-      <div ref={containerRef} className="relative" style={{ height: "400vh" }}>
+      <div ref={containerRef} className="relative" style={{ height: "500vh" }}>
         {/* Main - fijo detrás del scroller */}
         <Main ref={mainRef} isDesktop={isDesktop} />
 
@@ -112,9 +113,39 @@ export const ScrollMotion = ({ conferencistas, artistas }) => {
         <div
           ref={scrollerRef}
           className="fixed top-0 left-0 w-full z-30 will-change-transform"
-          style={{ height: "200vh" }}
+          style={{ height: "400vh" }}
         >
           <div className="scroller-content will-change-transform">
+            <div className="h-dvh w-full bg-black flex flex-col justify-center items-center">
+              <div className="text-center space-y-8">
+                <motion.div
+                  initial={{ scale: 0, y: -50, rotate: -180 }}
+                  animate={{ scale: 1, y: 0, rotate: 0 }}
+                  transition={{ type: "spring", stiffness: 80, damping: 12, delay: 0.2 }}
+                  className="flex justify-center"
+                >
+                  <PartyPopper className="w-20 h-20 text-primary" strokeWidth={1.2} />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <h2 className="lg:text-7xl text-5xl font-prosperoBold text-primary tracking-tight">
+                    Llenamos aforo
+                  </h2>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <p className="lg:text-2xl text-lg font-prosperoExtralight text-primary/80">
+                    Gracias por creer en el InterDay 2025
+                  </p>
+                </motion.div>
+              </div>
+            </div>
             <Speakers
               ref={speakersRef}
               isDesktop={isDesktop}
@@ -134,6 +165,7 @@ export const ScrollMotion = ({ conferencistas, artistas }) => {
               selectedIndex={selectedArtist}
               setSelectedIndex={setSelectedArtist}
               overlay={true}
+              legal={true}
             />
           </div>
         </div>
@@ -152,6 +184,7 @@ const Speakers = ({
   setSelectedIndex,
   isDesktop,
   overlay = false,
+  legal = false,
 }) => {
   const sliderRef = useRef(null);
   const [clickStartTime, setClickStartTime] = useState(0);
@@ -280,6 +313,19 @@ const Speakers = ({
                     </div>
                   ))}
                 </div>
+                {legal && (
+                  <p className="text-primary/30 w-full text-justify lg:text-center text-xs lg:text-[0.8rem] mt-10">
+                    Condiciones de acceso al evento: No hay venta de boletería
+                    para este evento. El acceso es exclusivamente con el código
+                    QR generado a través de este registroAforo limitado. El
+                    ingreso y la ubicación dentro del recinto se realizarán por
+                    orden de <br className="hidden lg:block" />
+                    llegada. No se permite el ingreso de alimentos ni bebidas.
+                    No se permite el ingreso de sustancias psicoactivas,
+                    cigarrillos ni armas de ningún tipo. No se permite el
+                    ingreso de menores de 18 años ni de mujeres embarazadas.
+                  </p>
+                )}
               </div>
             </>
           ) : (
@@ -345,8 +391,16 @@ const Main = ({ ref, isDesktop }) => {
               {" "}
               {isDesktop ? (
                 <>
-                  13 de Diciembre / Coliseo Álvaro Meza Amaya,{" "}
-                  <br className="block lg:hidden" /> Villavicencio, Meta.
+                  <p>
+                    13 de diciembre / Coliseo Álvaro Meza Amaya,{" "}
+                    <br className="block lg:hidden" /> Villavicencio, Meta.
+                  </p>
+                  <p>
+                    <span className="font-prosperoBold text-lg">
+                      Inicio del evento:{" "}
+                    </span>
+                    4:00 p.m. Cierre de puertas: 7:00 p.m.
+                  </p>
                 </>
               ) : (
                 <>
@@ -355,16 +409,14 @@ const Main = ({ ref, isDesktop }) => {
                   </p>
                   <p className="text-lg">Coliseo Álvaro Meza Amaya</p>
                   <p className="text-lg">Villavicencio, Meta.</p>
+                  <p className="text-lg mt-4">
+                    Inicio del evento 4:00 p.m. <br />
+                    Cierre de puertas: 7:00 p.m.
+                  </p>
                 </>
               )}
             </div>
 
-            <Button
-              id={"acquire-ticket"}
-              text="Entradas"
-              size={"small"}
-              color="white"
-            />
             <span className="absolute text-sm text-primary/60 bottom-18 -right-8 -rotate-90">
               PULEP: TQK951
             </span>

@@ -21,7 +21,7 @@ const LayoutMain = () => {
     <>
       <HeaderWithContext context={contextValue} />
       <Outlet context={contextValue} />
-      <FormTickets isOpen={openForm} onClose={() => setOpenForm(false)} />
+       
     </>
   );
 };

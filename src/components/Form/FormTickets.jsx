@@ -12,9 +12,12 @@ export const FormTickets = ({ isOpen, onClose }) => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
     reset,
   } = useForm();
+
+  const acceptTerms = watch("acceptTerms", false);
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
@@ -25,20 +28,66 @@ export const FormTickets = ({ isOpen, onClose }) => {
     // Guardar en Firestore
     const result = await saveUserTicket(data);
 
-    if (result.success) {
-      console.log("Ticket guardado con ID:", result.ticketId);
-      setSubmitMessage({ type: "success", text: result.message });
-      reset();
-
-      // Cerrar el modal después de 2 segundos
-      setTimeout(() => {
-        onClose();
-        setSubmitMessage(null);
-      }, 10000);
-    } else {
+    if (!result.success) {
       console.error("Error al guardar:", result.error);
       setSubmitMessage({ type: "error", text: result.message });
+      setIsSubmitting(false);
+      return;
     }
+
+    // Enviar a webhook de n8n antes de mostrar éxito (URL desde env)
+    try {
+      const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+      if (!webhookUrl) {
+        console.error("VITE_N8N_WEBHOOK_URL no está configurada en las variables de entorno.");
+        setSubmitMessage({
+          type: "error",
+          text: "Servicio externo no configurado. Contacta al administrador.",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      const payload = { ...data, ticketId: result.ticketId };
+
+      const resp = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!resp.ok) {
+        const text = await resp.text();
+        console.error("Webhook error:", resp.status, text);
+        setSubmitMessage({
+          type: "error",
+          text: "Ocurrió un error notificando el servicio externo. Intenta nuevamente.",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+    } catch (err) {
+      console.error("Error enviando webhook:", err);
+      setSubmitMessage({
+        type: "error",
+        text: "No se pudo conectar con el servicio externo. Intenta nuevamente.",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Si todo salió bien, mostrar mensaje de éxito
+    console.log("Ticket guardado con ID:", result.ticketId);
+    setSubmitMessage({ type: "success", text: result.message });
+    reset();
+
+    // Cerrar el modal después de 10 segundos
+    setTimeout(() => {
+      onClose();
+      setSubmitMessage(null);
+    }, 10000);
 
     setIsSubmitting(false);
   };
@@ -184,7 +233,27 @@ export const FormTickets = ({ isOpen, onClose }) => {
                     </motion.div>
                   )}
 
-                  {/* Botón de envío */}
+                  {/* Checkbox de términos */}
+                  <div className="pt-4 flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="acceptTerms"
+                      {...register("acceptTerms", {
+                        required:
+                          "Debes aceptar los términos y el tratamiento de datos",
+                      })}
+                      className="mt-1"
+                    />
+                    <label htmlFor="acceptTerms" className="text-primary text-sm">
+                      Acepto los <a className="underline" href="https://interrapidisimo.com/wp-content/uploads/GEJ-CTN-R-28-Terminos-y-Condiciones-envios-en-linea-V2.pdf" target="_blank" rel="noopener noreferrer">términos y condiciones</a> y el <a className="underline" href="https://www.interrapidisimo.com/proteccion-de-datos-personales/" target="_blank" rel="noopener noreferrer">tratamiento de datos</a>.
+                    </label>
+                  </div>
+                  {errors.acceptTerms && (
+                    <span className="text-red-500 text-xs mt-1 block">
+                      {errors.acceptTerms.message}
+                    </span>
+                  )}
+
                   <div className="pt-6">
                     <Button
                       id="submit-ticket"
@@ -192,7 +261,7 @@ export const FormTickets = ({ isOpen, onClose }) => {
                       text={isSubmitting ? "Enviando..." : "Obtén tu entrada"}
                       size="full"
                       color="white"
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || !acceptTerms}
                     />
                   </div>
                 </form>
@@ -220,14 +289,14 @@ const SuccessMessage = () => {
         transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
         className="mb-8"
       >
-        <CheckCircle2 size={80} className="text-four" strokeWidth={1.5} />
+        <CheckCircle2 size={80} className="text-primary" strokeWidth={1.5} />
       </motion.div>
 
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="text-gradient text-5xl font-prosperoBold mb-6"
+        className="text-primary lg:text-5xl text-2xl font-prosperoBold mb-6"
       >
         ¡GRACIAS!
       </motion.h2>
@@ -245,7 +314,7 @@ const SuccessMessage = () => {
           Pronto recibirás tu boleta en el correo electrónico que nos
           proporcionaste.
           <br />
-          <span className="text-four font-prosperoBold">
+          <span className="text-primary font-prosperoBold">
             ¡Nos vemos en INTER DAY 2025!
           </span>
         </p>
@@ -262,3 +331,5 @@ const SuccessMessage = () => {
     </motion.div>
   );
 };
+
+

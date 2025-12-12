@@ -82,7 +82,11 @@ export const Header = ({ context }) => {
               className="flex justify-center"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1, ease: [0.4, 0.0, 0.2, 1] }}
+              transition={{
+                duration: 0.4,
+                delay: 0.1,
+                ease: [0.4, 0.0, 0.2, 1],
+              }}
             >
               <i className="h-auto w-full max-w-72 inline-block">
                 <img
@@ -97,7 +101,11 @@ export const Header = ({ context }) => {
                 <motion.li
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.15, ease: [0.4, 0.0, 0.2, 1] }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.15,
+                    ease: [0.4, 0.0, 0.2, 1],
+                  }}
                   className="inline-block mx-4 cursor-pointer hover:opacity-70 transition-opacity"
                   onClick={() => window.scrollToSection?.("Conferencistas")}
                 >
@@ -106,7 +114,11 @@ export const Header = ({ context }) => {
                 <motion.li
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.2,
+                    ease: [0.4, 0.0, 0.2, 1],
+                  }}
                   className="inline-block mx-4 cursor-pointer hover:opacity-70 transition-opacity"
                   onClick={() => window.scrollToSection?.("Artistas")}
                 >
@@ -124,13 +136,7 @@ export const Header = ({ context }) => {
                       }}
                       className="overflow-hidden inline-block"
                     >
-                      <Button
-                        id={"header-acquire-ticket"}
-                        text="Entradas"
-                        size={"small"}
-                        color="white"
-                        onClick={() => context?.setOpenForm(true)}
-                      />
+                      
                     </motion.li>
                   )}
                 </AnimatePresence>
@@ -176,7 +182,11 @@ export const Header = ({ context }) => {
                 <motion.figure
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.1, ease: [0.4, 0.0, 0.2, 1] }}
+                  transition={{
+                    duration: 0.3,
+                    delay: 0.1,
+                    ease: [0.4, 0.0, 0.2, 1],
+                  }}
                   className="w-2/4"
                 >
                   <img className="size-3/5 object-contain" src={logo} alt="" />
@@ -184,7 +194,11 @@ export const Header = ({ context }) => {
                 <motion.i
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.15, ease: [0.4, 0.0, 0.2, 1] }}
+                  transition={{
+                    duration: 0.3,
+                    delay: 0.15,
+                    ease: [0.4, 0.0, 0.2, 1],
+                  }}
                 >
                   <Button
                     id={"header-acquire-ticket"}
@@ -195,7 +209,11 @@ export const Header = ({ context }) => {
                 <motion.i
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.2, ease: [0.4, 0.0, 0.2, 1] }}
+                  transition={{
+                    duration: 0.3,
+                    delay: 0.2,
+                    ease: [0.4, 0.0, 0.2, 1],
+                  }}
                 >
                   <Menu onClick={() => setopenNav(true)} />
                 </motion.i>
@@ -242,20 +260,12 @@ export const Header = ({ context }) => {
                           window.scrollToSection?.("Conferencistas");
                           setopenNav(false);
                         }}
-                        className="relative z-10 flex flex-col items-center justify-center gap-2 [&_span]:w-6 [&_span]:h-0.5 [&_span]:bg-primary/60"
+                        className="relative z-10 flex flex-col items-center justify-center gap-2 [&_span]:w-6 [&_span]:h-0.5 [&_span]:bg-primary/60 text-4xl"
                       >
                         <span />
                         Speakers
                         <span />
                       </button>
-                      <motion.img
-                        initial={{ scale: 1.2, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="size-full inline-block absolute object-cover -z-10"
-                        src="/imagenes/mobile/section-conferencistas.jpg"
-                        alt="Speakers"
-                      />
                     </motion.li>
                     <motion.li
                       variants={itemVariants}
@@ -266,43 +276,14 @@ export const Header = ({ context }) => {
                           window.scrollToSection?.("Artistas");
                           setopenNav(false);
                         }}
-                        className="relative z-10 flex flex-col items-center justify-center gap-2 [&_span]:w-6 [&_span]:h-0.5 [&_span]:bg-primary/60"
+                        className="relative z-10 flex flex-col items-center justify-center gap-2 [&_span]:w-6 [&_span]:h-0.5 [&_span]:bg-primary/60 text-4xl"
                       >
                         <span />
                         Artistas
                         <span />
                       </button>
-                      <motion.img
-                        initial={{ scale: 1.2, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="size-full inline-block absolute object-cover -z-10"
-                        src="/imagenes/mobile/section-artistasN.jpg"
-                        alt="Artistas"
-                      />
                     </motion.li>
-                    <motion.li
-                      variants={itemVariants}
-                      className="h-full font-prosperoExtralight text-primary/60 hover:text-primary transition-all ease-in flex justify-center items-center relative overflow-hidden"
-                    >
-                      <button
-                        onClick={handleClose}
-                        className="relative z-10 flex flex-col items-center justify-center gap-2 [&_span]:w-6 [&_span]:h-0.5 [&_span]:bg-primary/60"
-                        id={"header-acquire-ticket-mobile"}
-                      >
-                        <span />
-                        Entradas
-                        <span />
-                      </button>
-                      <motion.img
-                        initial={{ scale: 1.2, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        className="size-full inline-block absolute object-cover -z-10"
-                        src="/imagenes/mobile/section-reservar.jpg"
-                        alt="Reservar"
-                      />
-                    </motion.li>
+                     
                   </motion.ul>
                 </nav>
               </motion.div>
